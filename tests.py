@@ -1,7 +1,8 @@
 # This Program takes a .tfc file as input, generates all possible gate level equations,
 # generates all possible input permutations and display all gate level output matrices
 import re
-name='a.tfc'
+count=0
+name = 'a.tfc'
 with open('a.tfc', 'r') as datafile:
     for line in datafile:
         line1 = line.strip()
@@ -26,14 +27,18 @@ def strings(bc):
 
 garbage = open('gen.py', 'w')
 garbage.write("import itertools" + "\n")
+garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
 garbage.write("outs=open('correct_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
+garbage.write("total=list()"+ "\n")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_push(input_result):" + "\n")
-garbage.write("    levels.append('=>')" + "\n")
-garbage.write("    levels.append(input_result)" + "\n")
+garbage.write("    newstring = str(input_result[0])" + "\n")
+garbage.write("    for ch in range(1,len(input_result)):" + "\n")
+garbage.write("        newstring+=str(input_result[ch])" + "\n")
+garbage.write("    levels.append(newstring)")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_fix(input_result):" + "\n")
@@ -43,14 +48,24 @@ garbage.write("            result[n] = 1" + "\n")
 garbage.write("        if i == False:" + "\n")
 garbage.write("            result[n] = 0" + "\n")
 garbage.write("\n")
+garbage.write("def getheader(cc):"+"\n")
+garbage.write("    che=['Input']"+"\n")
+garbage.write("    for ch in range(cc):"+"\n")
+garbage.write("        che.append('Level'+str(ch))"+"\n")
+garbage.write("        if ch == cc-1:"+"\n")
+garbage.write("            che.append('Output')"+"\n")
+garbage.write("    return che")
 garbage.write("\n")
+garbage.write("\n")
+garbage.write("\n")
+
 garbage.write("testPatterns = table = list(itertools.product([0, 1], repeat=" + asd1 + "))" + "\n")
 garbage.write("for p in testPatterns:" + "\n")
 garbage.write("    levels = list()" + "\n")
 garbage.write('    ' + bb + ' = p' + '\n')
 
 garbage.write("    result = [" + bb + "]\n")
-garbage.write("    levels.append(result)" + "\n")
+garbage.write("    truth_push(result)" + "\n")
 qw = open('main1.txt', 'w')
 with open(name, 'r') as file_r:
     for line in file_r:
@@ -82,6 +97,7 @@ with open(name, 'r') as file_r:
         ff.close()
 with open('main1.txt', 'r+') as exp:
     for lenn in exp:
+        count += 1
         garbage.write("\n")
 
         if len(lenn) == 1:
@@ -154,10 +170,30 @@ with open('main1.txt', 'r+') as exp:
         garbage.write("    result = [" + bb + "]\n")
         garbage.write("    truth_fix(result)" + "\n")
         garbage.write("    truth_push(result)" + "\n")
+    garbage.write("    truth_push(result)"+"\n")
+    garbage.write("    total.append(levels)" + "\n")
+
+
+garbage.write('count = {0}'.format(str(count)))
 garbage.write("\n")
-garbage.write("    outs.write(str(levels))  ")
 garbage.write("\n")
-garbage.write("    outs.write('\\n')")
+garbage.write("che=list()")
 garbage.write("\n")
+garbage.write("\n")
+garbage.write("che=getheader(count)")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("total.insert(0,che)")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("sheet=pe.Sheet(total)")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("outs.write(str(sheet.content))")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("sheet.save_as('test.csv')")
+
+
 garbage.close()
 execfile('gen.py')

@@ -102,6 +102,7 @@ with open('main1.txt', 'r+') as exp:
 
         if len(lenn) == 1:
             if lenn == '\n':
+                count -= 1
                 continue
         ui = len(lenn)
         ax = lenn

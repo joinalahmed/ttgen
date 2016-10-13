@@ -2,7 +2,7 @@ import itertools
 import pyexcel as pe
 
 outs=open('correct_output.txt', 'w')
-a = 2 ** 4
+a = 2 ** 5
 total=list()
 
 
@@ -28,90 +28,39 @@ def getheader(cc):
     return che
 
 
-testPatterns = table = list(itertools.product([0, 1], repeat=4))
+testPatterns = table = list(itertools.product([0, 1], repeat=5))
 for p in testPatterns:
     levels = list()
-    a,b,c,d = p
-    result = [a,b,c,d]
+    a1,a2,a3,a4,a5 = p
+    result = [a1,a2,a3,a4,a5]
     truth_push(result)
 
-    c = a ^ c
-    result = [a,b,c,d]
+
+    a1 = not a1
+    result = [a1,a2,a3,a4,a5]
     truth_fix(result)
     truth_push(result)
 
-    d = c ^ d
-    result = [a,b,c,d]
+    a5 = (a3 and a4) ^ a5
+    result = [a1,a2,a3,a4,a5]
     truth_fix(result)
     truth_push(result)
 
-    a = d ^ a
-    result = [a,b,c,d]
+    a2 = (a2 and a3 and a5) ^ a2
+    if a3 == 1: a3 = not a3
+    if a5 == 1: a5 = not a5
+    result = [a1,a2,a3,a4,a5]
     truth_fix(result)
     truth_push(result)
 
-    c = (b and d) ^ c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = a ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = (c and d) ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = (a and b and c) ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = c ^ a
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = not b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = not c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = a ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = (b and d) ^ c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = (b and c) ^ a
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = (a and c) ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = not c
-    result = [a,b,c,d]
+    a2 = (a2 and a3 and a5) ^ a2
+    if a1 == 1: a1 = not a1
+    result = [a1,a2,a3,a4,a5]
     truth_fix(result)
     truth_push(result)
     truth_push(result)
     total.append(levels)
-count = 15
+count = 4
 
 che=list()
 

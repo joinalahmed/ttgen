@@ -15,29 +15,6 @@ with open('a.tfc', 'r') as datafile:
             asd1 = str(asd)
             break
 
-def neg_ctl(hexo):
-    for mns in range(len(hexo)):
-        hu = str(hexo[mns])
-        if hu == ",":
-            continue
-        mk = len(hexo)
-        mk -= 1
-        if mns == mk:
-            break
-        if "'" not in hu:
-            continue
-        hs = re.split("'", hu)
-        hs_fin = list()
-        hs_fin.append(hs[0])
-        hs_fin.append(' = not ')
-        hs_fin.append(hs[0])
-        hss = ''.join(hs_fin)
-        jk = 'if ' + hs[0] + ' == 1: '
-        jk1 = ''.join(jk)
-        lo = jk1 + hss
-
-        garbage.write('    '+lo + '\n')
-
 
 def strings(bc):
     bc = list(bc)
@@ -125,7 +102,6 @@ with open('main1.txt', 'r+') as exp:
 
         if len(lenn) == 1:
             if lenn == '\n':
-                count -= 1
                 continue
         ui = len(lenn)
         ax = lenn
@@ -154,7 +130,6 @@ with open('main1.txt', 'r+') as exp:
             benn.append(benn[0])
             benn1 = ''.join(benn)
             garbage.write('    ' + benn1 + '\n')
-
         if len(lenn) == 3:
             tren = list(lenn)
             nn = len(tren)
@@ -166,13 +141,7 @@ with open('main1.txt', 'r+') as exp:
             tren1.append(' ')
             tren1.append(tren[nn - 1])
             tren2 = ''.join(tren1)
-            if "'" in tren2:
-                vss = re.split("'", vs)
-                vss1 = ''.join(vss)
-                tren2 = vss1
             garbage.write('    ' + tren2 + '\n')
-            if "'" in str(lenn):
-                neg_ctl(lenn)
         if len(lenn) > 3:
             list1 = list(lenn)
             num = len(list1)
@@ -197,14 +166,7 @@ with open('main1.txt', 'r+') as exp:
                 if z == ven - 3:
                     break
             qwerty = ''.join(list1)
-            vs = ''.join(list1)
-            if "'" in vs:
-                vss = re.split("'", vs)
-                vss1 = ''.join(vss)
-                qwerty = vss1
             garbage.write('    ' + qwerty + '\n')
-            if "'" in str(lenn):
-                neg_ctl(lenn)
         garbage.write("    result = [" + bb + "]\n")
         garbage.write("    truth_fix(result)" + "\n")
         garbage.write("    truth_push(result)" + "\n")

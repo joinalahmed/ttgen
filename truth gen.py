@@ -74,7 +74,7 @@ garbage.write("\n")
 garbage.write("def getheader(cc):"+"\n")
 garbage.write("    che=['Input']"+"\n")
 garbage.write("    for ch in range(cc):"+"\n")
-garbage.write("        che.append('Level'+str(ch))"+"\n")
+garbage.write("        che.append('Level - '+str(ch))"+"\n")
 garbage.write("        if ch == cc-1:"+"\n")
 garbage.write("            che.append('Output')"+"\n")
 garbage.write("    return che")
@@ -97,6 +97,8 @@ with open(name, 'r') as file_r:
     for line in file_r:
         if line.strip() == 'END':
             break
+        if line.strip() == '\n':
+            continue
         line1 = re.split(',', line)
         length = len(line1)
         line2 = line1[0]

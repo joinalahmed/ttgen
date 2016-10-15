@@ -1,5 +1,6 @@
-
-a1
-a3,a4,a5
-a2,a3',a5',a2
-a1',a3
+c
+a,c
+c,b
+b,c,a
+a,b,c
+b,c

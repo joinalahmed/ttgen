@@ -28,6 +28,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         finally:
             to_readfile.close()
         subprocess.call(['python tests.py'], shell=True)
+        subprocess.call(['python aa.py'], shell=True)
 
 
 if __name__ == "__main__":

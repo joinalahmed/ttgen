@@ -2,7 +2,7 @@ import itertools
 import pyexcel as pe
 
 outs=open('correct_output.txt', 'w')
-a = 2 ** 5
+a = 2 ** 3
 total=list()
 
 
@@ -22,45 +22,51 @@ def truth_fix(input_result):
 def getheader(cc):
     che=['Input']
     for ch in range(cc):
-        che.append('Level'+str(ch))
+        che.append('Level - '+str(ch))
         if ch == cc-1:
             che.append('Output')
     return che
 
 
-testPatterns = table = list(itertools.product([0, 1], repeat=5))
+testPatterns = table = list(itertools.product([0, 1], repeat=3))
 for p in testPatterns:
     levels = list()
-    a1,a2,a3,a4,a5 = p
-    result = [a1,a2,a3,a4,a5]
+    a,b,c = p
+    result = [a,b,c]
     truth_push(result)
 
-
-    a1 = not a1
-    result = [a1,a2,a3,a4,a5]
+    c = not c
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    a5 = (a3 and a4) ^ a5
-    result = [a1,a2,a3,a4,a5]
+    c = a ^ c
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    a2 = (a2 and a3 and a5) ^ a2
-    if a3 == 1: a3 = not a3
-    if a5 == 1: a5 = not a5
-    result = [a1,a2,a3,a4,a5]
+    b = c ^ b
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    a2 = (a2 and a3 and a5) ^ a2
-    if a1 == 1: a1 = not a1
-    result = [a1,a2,a3,a4,a5]
+    a = (b and c) ^ a
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c = (a and b) ^ c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c = b ^ c
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
     truth_push(result)
     total.append(levels)
-count = 4
+count = 6
 
 che=list()
 

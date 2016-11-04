@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
+    <width>367</width>
     <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Truth Table Generator</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(170, 255, 255);
@@ -66,8 +66,8 @@ border-bottom-color: rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="run">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>260</y>
+      <x>140</x>
+      <y>250</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -82,8 +82,8 @@ border-bottom-color: rgb(0, 0, 0);</string>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>340</y>
+      <x>0</x>
+      <y>320</y>
       <width>351</width>
       <height>16</height>
      </rect>
@@ -103,6 +103,7 @@ border-bottom-color: rgb(0, 0, 0);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(170, 255, 0);
+color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
@@ -213,7 +214,7 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>364</width>
+     <width>367</width>
      <height>23</height>
     </rect>
    </property>

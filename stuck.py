@@ -3,6 +3,10 @@
 import re
 count=0
 name = 'a.tfc'
+with open('main.txt', 'r') as fin:
+    data = fin.read().splitlines(True)
+with open('main.txt', 'w') as fout:
+    fout.writelines(data[1:])
 with open('a.tfc', 'r') as datafile:
     for line in datafile:
         line1 = line.strip()
@@ -48,11 +52,11 @@ def strings(bc):
             bc[j] = 'str(' + bc[j] + ')'
 
 
-garbage = open('gen.py', 'w')
+garbage = open('genf.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
-garbage.write("outs=open('correct_output.txt', 'w')" + "\n")
+garbage.write("outs=open('faulty_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
 garbage.write("total=list()"+ "\n")
 garbage.write("\n")
@@ -89,44 +93,17 @@ garbage.write('    ' + bb + ' = p' + '\n')
 
 garbage.write("    result = [" + bb + "]\n")
 garbage.write("    truth_push(result)" + "\n")
-qw = open('main1.txt', 'w')
-with open(name, 'r') as file_r:
-    for line in file_r:
-        if line.strip() == 'BEGIN':
-            break
-    for line in file_r:
-        if line.strip() == 'END':
-            break
-        if line.strip() == '\n':
-            continue
-        line1 = re.split(',', line)
-        length = len(line1)
-        line2 = line1[0]
-        line2 = re.split('\\s', line2)
-        line2 = list(line2)
-        line1[0] = line2[1]
-        length1 = len(line1)
-        line3 = line1[length1 - 1]
-        length2 = len(line3)
-        line3 = re.split('\n', line3)
-        line1[length1 - 1] = line3[0]
-        line_final = list()
-        for ii in range(len(line1)):
-            line_final.append(line1[ii])
-            line_final.append(',')
-        del line_final[-1]
-        line_final1 = ''.join(line_final)
-        ff = open('main1.txt', 'a')
-        ff.write(line_final1)
-        ff.write('\n')
-        ff.close()
-with open('main1.txt', 'r+') as exp:
+with open('main.txt', 'r+') as exp:
+
     for lenn in exp:
         count += 1
         garbage.write("\n")
 
         if len(lenn) == 1:
             if lenn == '\n':
+                count -= 1
+                continue
+            if lenn == ' \n':
                 count -= 1
                 continue
         ui = len(lenn)
@@ -149,6 +126,8 @@ with open('main1.txt', 'r+') as exp:
         lenn = linen
         final_len = len(lenn)
         if len(lenn) == 1:
+            print lenn
+            print 'ssss'
             benn = list(lenn)
             benn.append(' =')
             benn.append(' not')
@@ -156,9 +135,17 @@ with open('main1.txt', 'r+') as exp:
             benn.append(benn[0])
             benn1 = ''.join(benn)
             garbage.write('    ' + benn1 + '\n')
-
         if len(lenn) == 3:
             tren = list(lenn)
+            print tren[0]
+            if tren[0]=='0':
+                garbage.write('    '+tren[2]+'=0'+'\n')
+                count-=1
+                continue
+            if tren[0]=='1':
+                garbage.write('    '+tren[2]+'=1'+'\n')
+                count-=1
+                continue
             nn = len(tren)
             tren1 = list(tren[nn - 1])
             tren1.append(' = ')
@@ -232,8 +219,10 @@ garbage.write("\n")
 garbage.write("outs.write(str(sheet.content))")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("sheet.save_as('test.csv')")
+garbage.write("sheet.save_as('testsf.csv')")
 
 
 garbage.close()
-execfile('gen.py')
+print 'running'
+execfile('genf.py')
+

@@ -8,6 +8,7 @@ Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
 
 class MyApp(QtGui.QMainWindow, Ui_MainWindow):
+
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -27,8 +28,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                 writefile.close()
         finally:
             to_readfile.close()
-        subprocess.call(['python tests.py'], shell=True)
-        subprocess.call(['python aa.py'], shell=True)
+        res=subprocess.call(['python truth_gen.py'], shell=True)
+        if res == 0:
+            subprocess.call(['python aa.py'], shell=True)
 
 
 if __name__ == "__main__":

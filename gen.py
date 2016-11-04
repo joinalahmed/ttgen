@@ -78,4 +78,4 @@ sheet=pe.Sheet(total)
 
 outs.write(str(sheet.content))
 
-sheet.save_as('test.csv')
+sheet.save_as('tests.csv')

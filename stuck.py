@@ -5,7 +5,7 @@ count=0
 name = 'a.tfc'
 with open('main.txt', 'r') as fin:
     data = fin.read().splitlines(True)
-with open('main.txt', 'w') as fout:
+with open('main2.txt', 'w') as fout:
     fout.writelines(data[1:])
 with open('a.tfc', 'r') as datafile:
     for line in datafile:
@@ -93,7 +93,7 @@ garbage.write('    ' + bb + ' = p' + '\n')
 
 garbage.write("    result = [" + bb + "]\n")
 garbage.write("    truth_push(result)" + "\n")
-with open('main.txt', 'r+') as exp:
+with open('main2.txt', 'r+') as exp:
 
     for lenn in exp:
         count += 1

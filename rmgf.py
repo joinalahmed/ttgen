@@ -2,13 +2,12 @@ import sys
 import subprocess
 from PyQt4 import QtGui, uic
 
-qtCreatorFile = "x.ui"  # Enter file here.
+qtCreatorFile = "y.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
 
 class MyApp(QtGui.QMainWindow, Ui_MainWindow):
-
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -22,11 +21,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             data = file.readlines()
 
         # now inject fault in nth level, note that you have to add a newline
-        a=data[n]
-        for i in range(len(data)):
-            if data[i]==a:
-                data[i]='\n'
-
+        print data
+        data.insert(n+1,data[n])
+        print data
         # and write everything back
         with open('main.txt', 'w') as file:
             file.writelines(data)
@@ -35,8 +32,10 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         if res == 0:
             sys.exit(app.exec_())
 
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     window = MyApp()
     window.show()
+    window.move(550,250)
     sys.exit(app.exec_())

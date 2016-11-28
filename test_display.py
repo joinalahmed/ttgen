@@ -1,7 +1,7 @@
 
 import sys
 import csv
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 from PyQt4.QtCore import *
 import subprocess
 from array import *
@@ -75,10 +75,10 @@ class specTableModel(QAbstractTableModel):
 
 
     def rowCount(self, parent):
-        return len(self.arraydata)
+        return 0
 
     def columnCount(self, parent):
-        return len(self.arraydata[0])
+        return 0
 
     def data(self, index, role):
         if not index.isValid():
@@ -97,7 +97,13 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
+
+    palette=QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.Background,QtCore.Qt.darkCyan)
+    app.setPalette(palette)
     ex = UserWindow()
+    ex.resize(1050,420)
+    ex.move(150,150)
     ex.show()
     sys.exit(app.exec_())
 

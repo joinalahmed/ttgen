@@ -1,7 +1,7 @@
 
 import sys
 import csv
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 from PyQt4.QtCore import *
 import subprocess
 from array import *
@@ -13,7 +13,6 @@ class UserWindow(QtGui.QMainWindow):
         super(UserWindow, self).__init__()
         self.specModel = QtGui.QStandardItemModel(self)
         self.specList = self.createSpecTable()
-        #self.specListF = self.createSpecTable()
         self.initUI()
         self.scnBtn.clicked.connect(self.clicked)
     def clicked(self):
@@ -81,10 +80,10 @@ class specTableModel(QAbstractTableModel):
 
 
     def rowCount(self, parent):
-        return len(self.arraydata)
+        return 0
 
     def columnCount(self, parent):
-        return len(self.arraydata[0])
+        return 0
 
     def data(self, index, role):
         if not index.isValid():
@@ -103,7 +102,12 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
+    palette=QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.Background,QtCore.Qt.cyan)
+    app.setPalette(palette)
     ex = UserWindow()
+    ex.resize(1050,420)
+    ex.move(150,150)
     ex.show()
     sys.exit(app.exec_())
 

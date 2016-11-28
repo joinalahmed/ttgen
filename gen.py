@@ -26,8 +26,17 @@ def getheader(cc):
         if ch == cc-1:
             che.append('Output')
     return che
+def getheaders(cc,lines):
+    che=[lines]
+    for ch in range(cc):
+        che.append(lines)
+        if ch == cc-1:
+            che.append(lines)
+    return che
 
 
+lines =str('a,b,c')
+lines=lines.replace(',','')
 testPatterns = table = list(itertools.product([0, 1], repeat=3))
 for p in testPatterns:
     levels = list()
@@ -35,7 +44,17 @@ for p in testPatterns:
     result = [a,b,c]
     truth_push(result)
 
-    c = not c
+    a = (b and c) ^ a
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    b = c ^ b
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c = b ^ c
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
@@ -49,33 +68,25 @@ for p in testPatterns:
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
-
-    a = (b and c) ^ a
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    c = (a and b) ^ c
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    c = b ^ c
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
     truth_push(result)
     total.append(levels)
-count = 6
+count = 5
 
 che=list()
 
 che=getheader(count)
 
+ches=getheaders(count,lines)
+
 total.insert(0,che)
+
+total.insert(1,ches)
 
 sheet=pe.Sheet(total)
 
 outs.write(str(sheet.content))
 
 sheet.save_as('tests.csv')
+
+sheet.save_as('correct_output.csv')
+print sheet

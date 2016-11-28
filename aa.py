@@ -1,23 +1,26 @@
-import sys
 import csv
-from PyQt4 import QtGui
-from PyQt4.QtCore import *
 import subprocess
-from array import *
+import sys
+from PyQt4 import QtGui
+from PyQt4 import QtCore
+
+from PyQt4.QtCore import *
 
 res = 1
 
 
 class UserWindow(QtGui.QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self):
         super(UserWindow, self).__init__()
+        self.specTable = QtGui.QTableView()
         self.specModel = QtGui.QStandardItemModel(self)
         self.specList = self.createSpecTable()
-        # self.specListF = self.createSpecTable()
         self.initUI()
         self.scnBtn.clicked.connect(self.clicked)
         self.scnBtn4.clicked.connect(self.appearcross)
         self.scnBtn1.clicked.connect(self.rmgf)
+        self.scnBtn3.clicked.connect(self.pmgf)
+
         self.scnBtn2.clicked.connect(self.mmgf)
         self.scnBtn8.clicked.connect(self.stuck0)
         self.scnBtn9.clicked.connect(self.stuck1)
@@ -62,7 +65,10 @@ class UserWindow(QtGui.QMainWindow):
     def bridgeor(self):
         res = subprocess.call(['python bridge_or.py'], shell=True)
         res = subprocess.call(['python f_dis.py'], shell=True)
-
+    def pmgf(self):
+        res = subprocess.call(['python pmgf.py'], shell=True)
+        # res=subprocess.call(['python comp.py'])
+        res = subprocess.call(['python f_dis.py'], shell=True)
     def specData(self):
         with open('tests.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
@@ -71,7 +77,6 @@ class UserWindow(QtGui.QMainWindow):
                     self.specModel.appendRow(items)
 
     def createSpecTable(self):
-        self.specTable = QtGui.QTableView()
         # This is a test header - different from what is needed
         specHdr = ['Test', 'Date', 'Time', 'Type']
         self.specData()
@@ -94,43 +99,36 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn3 = QtGui.QPushButton("PMGF")
         self.scnBtn4 = QtGui.QPushButton("Crosspoint-Appearence")
         self.scnBtn5 = QtGui.QPushButton("Crosspoint-Disappearence")
-
         self.scnBtn6 = QtGui.QPushButton("Bridging - ORed")
-
         self.scnBtn7 = QtGui.QPushButton("Bridging - ANDed")
-
         self.scnBtn8 = QtGui.QPushButton("Stuck-at-0")
-
         self.scnBtn9 = QtGui.QPushButton("Stuck-at-1")
-
         self.scnBtn10 = QtGui.QPushButton("BIT")
+
 
         # List Window
         self.specList.setModel(self.specModel)
-        # self.specListF.setModel(self.specModel)
-
-        # Layout of Widgets
         pGrid = QtGui.QGridLayout()
         pGrid.setSpacing(5)
-        pGrid.addWidget(self.label, 2, 25)
+        pGrid.addWidget(self.label, 2, 0)
         pGrid.addWidget(self.scnBtn, 3, 0)
-        pGrid.addWidget(self.scnBtn1, 3, 5)
-        pGrid.addWidget(self.scnBtn2, 3, 10)
-        pGrid.addWidget(self.scnBtn3, 3, 14)
-        pGrid.addWidget(self.scnBtn4, 3, 20)
-        pGrid.addWidget(self.scnBtn5, 3, 25)
+        pGrid.addWidget(self.scnBtn1, 4, 0)
+        pGrid.addWidget(self.scnBtn2, 5, 0)
+        pGrid.addWidget(self.scnBtn3, 6, 0)
+        pGrid.addWidget(self.scnBtn4, 7, 0)
+        pGrid.addWidget(self.scnBtn5, 8, 0)
 
-        pGrid.addWidget(self.scnBtn6, 3, 30)
+        pGrid.addWidget(self.scnBtn6, 9,0)
 
-        pGrid.addWidget(self.scnBtn7, 3, 34)
+        pGrid.addWidget(self.scnBtn7, 10,0)
 
-        pGrid.addWidget(self.scnBtn8, 3, 38)
+        pGrid.addWidget(self.scnBtn8, 11, 0)
 
-        pGrid.addWidget(self.scnBtn9, 3, 35)
+        pGrid.addWidget(self.scnBtn9, 12, 0)
 
-        pGrid.addWidget(self.scnBtn10, 3, 40)
+        pGrid.addWidget(self.scnBtn10, 13,0)
 
-        pGrid.addWidget(self.specList, 4, 0, 4, 50)
+        pGrid.addWidget(self.specList, 2, 5, 13, 50)
         # pGrid.addWidget(self.specListF)
         if res == 0:
             pGrid.addWidget(self.label, 5, 0)
@@ -150,10 +148,10 @@ class specTableModel(QAbstractTableModel):
         self.headerdata = headerdata
 
     def rowCount(self, parent):
-        return len(self.arraydata)
+        return 0
 
     def columnCount(self, parent):
-        return len(self.arraydata[0])
+        return 0
 
     def data(self, index, role):
         if not index.isValid():
@@ -171,7 +169,12 @@ class specTableModel(QAbstractTableModel):
 def main():
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
+    palette=QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.Background,QtCore.Qt.cyan)
+    app.setPalette(palette)
     ex = UserWindow()
+    ex.resize(1050,420)
+    ex.move(150,150)
     ex.show()
     sys.exit(app.exec_())
 

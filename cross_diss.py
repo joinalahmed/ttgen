@@ -2,7 +2,7 @@ import sys
 import subprocess
 from PyQt4 import QtGui, uic
 
-qtCreatorFile = "CA.ui"  # Enter file here.
+qtCreatorFile = "CD.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
@@ -44,4 +44,6 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     window = MyApp()
     window.show()
+    window.move(550,250)
+
     sys.exit(app.exec_())

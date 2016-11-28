@@ -2,7 +2,7 @@ import sys
 import subprocess
 from PyQt4 import QtGui, uic
 
-qtCreatorFile = "stuckat.ui"  # Enter file here.
+qtCreatorFile = "stuckat1.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 

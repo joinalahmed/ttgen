@@ -1,5 +1,7 @@
 import re
 import string
+import pyexcel as pe
+
 #import prettytable
 
 
@@ -44,7 +46,7 @@ def neg_ctl(hexo):
 # BLOCK FOR LEVEL DETAILS
 
 # BLOCK FOR .tfc FILE PROCESSING , EXTRACTION OF DATA
-with open('a.tfc', 'r+') as file:
+with open('/home/joy/Desktop/test/a.tfc', 'r+') as file:
     for line in file:
         if line.strip() == 'BEGIN':
             break
@@ -140,7 +142,7 @@ with open('main11.txt', 'r+') as exp:
                          QC = QC + 4
                     i=i+1
 
-print QC
-# LEVEL(S) DETAILS FUNCTION CALLER BLOCK
-# u_ip = int(input('WANT LEVEL(S) DETAILS , IF YES PRESS 1 , IF NO PRESS 0'))
-# if u_ip == 1:
+sheet = pe.get_sheet(file_name="details.csv")
+sheet.row[-1] = ['Quantum', 'Cost', '=',QC]
+sheet.save_as("/home/joy/Desktop/test/details.csv")
+print sheet

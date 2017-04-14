@@ -22,7 +22,7 @@ def truth_fix(input_result):
 def getheader(cc):
     che=['Input']
     for ch in range(cc):
-        che.append('Level - '+str(ch))
+        che.append('Level-'+str(ch))
         if ch == cc-1:
             che.append('Output')
     return che
@@ -44,21 +44,6 @@ for p in testPatterns:
     result = [a,b,c]
     truth_push(result)
 
-    a = (b and c) ^ a
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    b = c ^ b
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    c = b ^ c
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
     c = a ^ c
     result = [a,b,c]
     truth_fix(result)
@@ -68,9 +53,19 @@ for p in testPatterns:
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
+
+    c = (a and b) ^ c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    a = b ^ a
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
     truth_push(result)
     total.append(levels)
-count = 5
+count = 4
 
 che=list()
 
@@ -87,6 +82,10 @@ sheet=pe.Sheet(total)
 outs.write(str(sheet.content))
 
 sheet.save_as('tests.csv')
+print(sheet)
 
-sheet.save_as('correct_output.csv')
-print sheet
+sheet.save_as('/home/joy/Desktop/output.csv')
+value=len(sheet.column_range())
+sheet.column.select([0,value-1])
+sheet.save_as('/home/joy/Desktop/correct_output.csv')
+print(sheet)

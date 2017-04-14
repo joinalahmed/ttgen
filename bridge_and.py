@@ -23,12 +23,13 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         with open('main.txt', 'r') as file:
             # read a list of lines into data
             data = file.readlines()
-
+	print data
         # now inject fault in nth level, note that you have to add a newline
         print data[1]
-        if line in data[0]:
-            data.insert(n + 1, '&' + ',' + line + '\n')
+        #if line in data[0]:
+        data.insert(n + 1, '&' + ',' + line + '\n')
         # and write everything back
+	print data
         with open('main.txt', 'w') as file:
             file.writelines(data)
         res = subprocess.call(['python bridge.py'], shell=True)

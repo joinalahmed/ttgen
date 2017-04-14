@@ -28,6 +28,18 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn7.clicked.connect(self.bridgeand)
 
         self.scnBtn6.clicked.connect(self.bridgeor)
+        self.scnBtn10.clicked.connect(self.reverse)
+        self.scnBtn11.clicked.connect(self.detail)
+        self.scnBtn12.clicked.connect(self.smart)
+
+    def smart(self):
+        res = subprocess.call(['python smart_ui.py'], shell=True)
+        #res = subprocess.call(['python smart_sim.py'], shell=True)
+        res = subprocess.call(['python smart_dis.py'], shell=True)
+
+    def detail(self):
+        res = subprocess.call(['python detail.py'], shell=True)
+        res = subprocess.call(['python detail_image.py'], shell=True)
 
     def clicked(self):
         res = subprocess.call(['python smfg.py'], shell=True)
@@ -69,6 +81,11 @@ class UserWindow(QtGui.QMainWindow):
         res = subprocess.call(['python pmgf.py'], shell=True)
         # res=subprocess.call(['python comp.py'])
         res = subprocess.call(['python f_dis.py'], shell=True)
+
+    def reverse(self):
+        res = subprocess.call(['python reverse.py'], shell=True)
+        # res=subprocess.call(['python comp.py'])
+        res = subprocess.call(['python r_dis.py'], shell=True)
     def specData(self):
         with open('tests.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
@@ -103,7 +120,11 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn7 = QtGui.QPushButton("Bridging - ANDed")
         self.scnBtn8 = QtGui.QPushButton("Stuck-at-0")
         self.scnBtn9 = QtGui.QPushButton("Stuck-at-1")
-        self.scnBtn10 = QtGui.QPushButton("BIT")
+        self.scnBtn10 = QtGui.QPushButton("Reverse Circuit")
+        self.scnBtn11 = QtGui.QPushButton("Circuit Details")
+        self.scnBtn12 = QtGui.QPushButton("Smart Simulation")
+
+
 
 
         # List Window
@@ -127,8 +148,13 @@ class UserWindow(QtGui.QMainWindow):
         pGrid.addWidget(self.scnBtn9, 12, 0)
 
         pGrid.addWidget(self.scnBtn10, 13,0)
+        pGrid.addWidget(self.scnBtn11, 14,0)
+        pGrid.addWidget(self.scnBtn12, 15,0)
+
+
 
         pGrid.addWidget(self.specList, 2, 5, 13, 50)
+        #pGrid.addWidget(self.specList1)
         # pGrid.addWidget(self.specListF)
         if res == 0:
             pGrid.addWidget(self.label, 5, 0)
@@ -138,6 +164,9 @@ class UserWindow(QtGui.QMainWindow):
         self.statusBar()
 
         self.setWindowTitle('Truth Table')
+
+
+
 
 
 class specTableModel(QAbstractTableModel):

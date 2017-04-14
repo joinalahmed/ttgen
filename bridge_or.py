@@ -26,8 +26,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
         # now inject fault in nth level, note that you have to add a newline
         print data[1]
-        if line in data[0]:
-            data.insert(n + 1, '^' + ',' + line + '\n')
+        #if line in data[0]:
+	    #print("success")
+        data.insert(n + 1, '^' + ',' + line + '\n')
         # and write everything back
         with open('main.txt', 'w') as file:
             file.writelines(data)

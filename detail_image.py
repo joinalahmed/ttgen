@@ -1,25 +1,34 @@
+from __future__ import print_function
+from PyQt4.QtGui import *
 import csv
 import subprocess
 import sys
+from PyQt4.QtCore import *
+from imageviewer import ImageViewer
 from PyQt4 import QtGui
 from PyQt4 import QtCore
 
-from PyQt4.QtCore import *
 
 res = 1
-
-
+with open('filename.txt') as f:
+    lines = f.readlines()
+a=lines[0]
+a=a[:-4]
+name='tfc/'+str(a)+'.jpg'
+print(name)
 class UserWindow(QtGui.QMainWindow):
     def __init__(self):
         super(UserWindow, self).__init__()
+        self.ctr_frame = QtGui.QWidget()
         self.specTable = QtGui.QTableView()
         self.specModel = QtGui.QStandardItemModel(self)
         self.specList = self.createSpecTable()
+        self.image = ImageViewer(None, name)
+
         self.initUI()
 
-    
     def specData(self):
-        with open('tests.csv', 'rb') as csvInput:
+        with open('details.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
                 if row > 0:
                     items = [QtGui.QStandardItem(field) for field in row]
@@ -40,15 +49,12 @@ class UserWindow(QtGui.QMainWindow):
         return self.specTable
 
     def initUI(self):
-        self.ctr_frame = QtGui.QWidget()
-
         # List Window
         self.specList.setModel(self.specModel)
         pGrid = QtGui.QGridLayout()
         pGrid.setSpacing(5)
-        pGrid.addWidget(self.specList, 2, 5, 13, 50)
-        #pGrid.addWidget(self.specList1)
-        # pGrid.addWidget(self.specListF)
+        pGrid.addWidget(self.specList, 2, 5,15,10)
+        pGrid.addWidget(self.image, 2, 15,15,150)
         if res == 0:
             pGrid.addWidget(self.label, 5, 0)
 
@@ -56,10 +62,7 @@ class UserWindow(QtGui.QMainWindow):
         self.setCentralWidget(self.ctr_frame)
         self.statusBar()
 
-        self.setWindowTitle('Full Truth Table of the Circuit')
-
-
-
+        self.setWindowTitle('Circuit Details')
 
 
 class specTableModel(QAbstractTableModel):
@@ -91,11 +94,11 @@ class specTableModel(QAbstractTableModel):
 def main():
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
-    palette=QtGui.QPalette()
-   
+    palette = QtGui.QPalette()
+    app.setPalette(palette)
     ex = UserWindow()
-    ex.resize(1050,420)
-    ex.move(150,150)
+    ex.resize(1050, 420)
+    ex.move(150, 150)
     ex.show()
     sys.exit(app.exec_())
 

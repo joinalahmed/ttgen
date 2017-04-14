@@ -17,7 +17,11 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
 
     def clicked(self):
         price = str(self.filename.toPlainText())
-        to_readfile = open(price, 'r')
+        prices="tfc/"+price
+        to_readfile = open(prices, 'r')
+        writefile = open('filename.txt', 'w')
+        writefile.write(price)
+        writefile.close()
         try:
             reading_file = to_readfile.read()
 
@@ -28,6 +32,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                 writefile.close()
         finally:
             to_readfile.close()
+        print reading_file
+        print "test"
         res=subprocess.call(['python truth_gen.py'], shell=True)
         if res == 0:
             subprocess.call(['python aa.py'], shell=True)

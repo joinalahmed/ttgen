@@ -27,7 +27,7 @@ with open('/home/joy/Desktop/test/rev.tfc', 'r') as datafile:
             asd1 = str(asd)
             #print asd1
             break
-    ff = open('main.txt', 'w')
+    ff = open('/home/joy/Desktop/test/main.txt', 'w')
     ff.write(bb)
     ff.write('\n')
     ff.close()
@@ -61,7 +61,7 @@ with open('/home/joy/Desktop/test/rev.tfc', 'r') as datafile:
             asd = len(cc)
             asd1 = str(asd)
             break
-    ff = open('main.txt', 'w')
+    ff = open('/home/joy/Desktop/test/main.txt', 'w')
     ff.write(bb)
     ff.write('\n')
     ff.close()
@@ -99,7 +99,7 @@ def strings(bc):
             bc[j] = 'str(' + bc[j] + ')'
 
 
-garbage = open('gentest.py', 'w')
+garbage = open('/home/joy/Desktop/test/gentest.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
@@ -165,8 +165,8 @@ garbage.write("    levels = list()" + "\n")
 garbage.write('    ' + bb + ' = p' + '\n')
 garbage.write("    result = [" + bb + "]\n")
 garbage.write("    truth_push(result)" + "\n")
-qw = open('main.txt', 'a')
-ff = open('main1.txt', 'w')
+qw = open('/home/joy/Desktop/test/main.txt', 'a')
+ff = open('/home/joy/Desktop/test/main1.txt', 'w')
 with open(name, 'r') as file_r:
     for line in file_r:
         if line.strip() == 'BEGIN':
@@ -198,7 +198,7 @@ with open(name, 'r') as file_r:
         qw.write(line_final1)
         qw.write('\n')
     ff.close()
-with open('main1.txt', 'r+') as exp:
+with open('/home/joy/Desktop/test/main1.txt', 'r+') as exp:
     for lenn in exp:
         count += 1
         garbage.write("\n")
@@ -306,7 +306,6 @@ garbage.write("total.insert(0,che)")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("total.insert(1,ches)")
-
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("sheet=pe.Sheet(total)")
@@ -316,7 +315,6 @@ garbage.write("outs.write(str(sheet.content))")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("sheet.save_as('tests.csv')")
-
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("\n")
@@ -324,22 +322,17 @@ garbage.write("\n")
 garbage.write("value=len(sheet.column_range())")
 garbage.write("\n")
 garbage.write("sheet.column.select([0,value-1])")
-
 garbage.write("\n")
 garbage.write("sheet.save_as('/home/joy/Desktop/output.csv')")
 garbage.write("\n")
 garbage.write("\n")
-#garbage.write("print(sheet)")
 garbage.write("\n")
 garbage.write("value=len(sheet.column_range())")
 garbage.write("\n")
 garbage.write("sheet.column.select([0,value-1])")
-
 garbage.write("\n")
-
 garbage.write("sheet.save_as('/home/joy/Desktop/outputs.csv')")
 garbage.write("\n")
-#garbage.write("print(sheet)")
 garbage.write("\n")
 garbage.close()
-execfile('gentest.py')
+execfile('/home/joy/Desktop/test/gentest.py')

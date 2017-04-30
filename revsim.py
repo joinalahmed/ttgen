@@ -2,8 +2,8 @@
 # generates all possible input permutations and display all gate level output matrices
 import re
 count = 0
-name = '/home/joy/Desktop/test/rev.tfc'
-with open('/home/joy/Desktop/test/a.tfc', 'r') as datafile:
+name = '../../Desktop/test/rev.tfc'
+with open('../../Desktop/test/a.tfc', 'r') as datafile:
     for line in datafile:
         line1 = line.strip()
         if '.i' in line1:
@@ -14,7 +14,7 @@ with open('/home/joy/Desktop/test/a.tfc', 'r') as datafile:
             asd = len(cc)
             asd1 = str(asd)
             break
-    ff = open('/home/joy/Desktop/test/revmain.txt', 'w')
+    ff = open('../../Desktop/test/revmain.txt', 'w')
     ff.write(bb)
     ff.write('\n')
     ff.close()
@@ -53,13 +53,13 @@ def strings(bc):
             bc[j] = 'str(' + bc[j] + ')'
 
 
-garbage = open('/home/joy/Desktop/test/genr.py', 'w')
+garbage = open('../../Desktop/test/genr.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
 garbage.write("outs=open('correct_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
-garbage.write("total=list()"+ "\n")
+garbage.write("total=list()" + "\n")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_push(input_result):" + "\n")
@@ -77,12 +77,13 @@ garbage.write("        if i == False:" + "\n")
 garbage.write("            result[n] = 0" + "\n")
 garbage.write("\n")
 garbage.write("def getheader(cc):"+"\n")
-garbage.write("    che=['Output']"+"\n")
+#garbage.write("    print cc\n")
+garbage.write("    che=['level'+str(cc+1)]"+"\n")
 garbage.write("    for ch in range(cc):"+"\n")
 garbage.write("        ches=cc-1-ch"+"\n")
-garbage.write("        che.append('Level-'+str(ches))"+"\n")
+garbage.write("        che.append('Level-'+str(ches+1))"+"\n")
 garbage.write("        if ch == cc-1:"+"\n")
-garbage.write("            che.append('Input')"+"\n")
+garbage.write("            che.append('Level-0')"+"\n")
 garbage.write("    return che")
 garbage.write("\n")
 garbage.write("def getheaders(cc,lines):"+"\n")
@@ -106,8 +107,8 @@ garbage.write("    levels = list()" + "\n")
 garbage.write('    ' + bb + ' = p' + '\n')
 garbage.write("    result = [" + bb + "]\n")
 garbage.write("    truth_push(result)" + "\n")
-qw = open('revmain.txt', 'a')
-ff = open('revmain1.txt', 'w')
+qw = open('../../Desktop/test/revmain.txt', 'a')
+ff = open('../../Desktop/test/revmain1.txt', 'w')
 with open(name, 'r') as file_r:
     for line in file_r:
         if line.strip() == 'BEGIN':
@@ -139,7 +140,7 @@ with open(name, 'r') as file_r:
         qw.write(line_final1)
         qw.write('\n')
     ff.close()
-with open('revmain1.txt', 'r+') as exp:
+with open('../../Desktop/test/revmain1.txt', 'r+') as exp:
     for lenn in exp:
         count += 1
         garbage.write("\n")
@@ -229,11 +230,11 @@ with open('revmain1.txt', 'r+') as exp:
         garbage.write("    result = [" + bb + "]\n")
         garbage.write("    truth_fix(result)" + "\n")
         garbage.write("    truth_push(result)" + "\n")
-    garbage.write("    truth_push(result)"+"\n")
+    #garbage.write("    truth_push(result)"+"\n")
     garbage.write("    total.append(levels)" + "\n")
 
 
-garbage.write('count = {0}'.format(str(count)))
+garbage.write('count = {0}'.format(str(count-1)))
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("che=list()")
@@ -257,9 +258,10 @@ garbage.write("\n")
 garbage.write("outs.write(str(sheet.content))")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("sheet.save_as('/home/joy/Desktop/test/rev.csv')")
+garbage.write("sheet.save_as('../../Desktop/test/rev.csv')")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("sheet.save_as('/home/joy/Desktop/test/reverse_output.csv')")
+garbage.write("sheet.save_as('../../Desktop/test/reverse_output.csv')")
+#garbage.write("\nprint sheet")
 garbage.close()
-execfile('/home/joy/Desktop/test/genr.py')
+execfile('../../Desktop/test/genr.py')

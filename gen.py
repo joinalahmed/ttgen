@@ -1,8 +1,8 @@
 import itertools
 import pyexcel as pe
 
-outs=open('correct_output.txt', 'w')
-a = 2 ** 3
+outs=open('../../Desktop/test/correct_output.txt', 'w')
+a = 2 ** 4
 total=list()
 
 
@@ -20,11 +20,9 @@ def truth_fix(input_result):
             result[n] = 0
 
 def getheader(cc):
-    che=['Input']
-    for ch in range(cc):
-        che.append('Level-'+str(ch))
-        if ch == cc-1:
-            che.append('Output')
+    che=['Level-0']
+    for ch in range(cc+1):
+        che.append('Level-'+str(ch+1))
     return che
 def getheaders(cc,lines):
     che=[lines]
@@ -35,37 +33,81 @@ def getheaders(cc,lines):
     return che
 
 
-lines =str('a,b,c')
+lines =str('a,b,c,d')
 lines=lines.replace(',','')
-testPatterns = table = list(itertools.product([0, 1], repeat=3))
+testPatterns = table = list(itertools.product([0, 1], repeat=4))
 for p in testPatterns:
     levels = list()
-    a,b,c = p
-    result = [a,b,c]
+    a,b,c,d = p
+    result = [a,b,c,d]
     truth_push(result)
 
-    c = a ^ c
-    result = [a,b,c]
+    a = c ^ a
+    result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
 
-    b = c ^ b
-    result = [a,b,c]
+    d = a ^ d
+    result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
 
-    c = (a and b) ^ c
-    result = [a,b,c]
+    d = not d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = (a and b) ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    b = d ^ b
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    c = b ^ c
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = (b and c) ^ d
+    result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
 
     a = b ^ a
-    result = [a,b,c]
+    result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
+
+    c = (a and b) ^ c
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    a = (c and d) ^ a
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    b = (a and d) ^ b
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = b ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    c = d ^ c
+    result = [a,b,c,d]
+    truth_fix(result)
     truth_push(result)
     total.append(levels)
-count = 4
+count = 12
 
 che=list()
 
@@ -81,11 +123,9 @@ sheet=pe.Sheet(total)
 
 outs.write(str(sheet.content))
 
-sheet.save_as('tests.csv')
-print(sheet)
+sheet.save_as('../../Desktop/test/tests.csv')
 
-sheet.save_as('/home/joy/Desktop/output.csv')
+sheet.save_as('../../Desktop/test/output.csv')
 value=len(sheet.column_range())
 sheet.column.select([0,value-1])
-sheet.save_as('/home/joy/Desktop/correct_output.csv')
-print(sheet)
+sheet.save_as('../../Desktop/test/correct_output.csv')

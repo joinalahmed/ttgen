@@ -16,11 +16,11 @@ class UserWindow(QtGui.QMainWindow):
         self.initUI()
         self.scnBtn.clicked.connect(self.clicked)
     def clicked(self):
-        res=subprocess.call(['python test_display.py'], shell=True)
+        subprocess.call(['python /home/joy/Desktop/test/test_display.py'], shell=True)
 
 
     def specData(self):
-        with open('testsf.csv', 'rb') as csvInput:
+        with open('/home/joy/Desktop/test/testsf.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
                 if row > 0:
                     items = [QtGui.QStandardItem(field) for field in row]

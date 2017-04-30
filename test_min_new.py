@@ -1,9 +1,6 @@
 # This Program takes a .tfc file as input, generates all possible gate level equations,
 # generates all possible input permutations and display all gate level output matrices
 import re,os,subprocess
-#os.remove("/home/joy/Desktop/final.csv")
-
-
 import pandas as pd
 data_input=1
 sheet1=''
@@ -73,19 +70,19 @@ for i in range(num_lines):
 
     rever = list()
 
-    with open("rev.tfc", "r") as textobj:
+    with open("/home/joy/Desktop/test/rev.tfc", "r") as textobj:
         rever = list(textobj)
     line_num=line_nums()
     del rever[line_num-2]
     if (rever[-1] == 'end\n' or rever[-1] == 'END\n') and (rever[-2] == 'begin\n' or rever[-2] == 'BEGIN\n'):
         break
-    with open("rev.tfc", "w") as textobj:
+    with open("/home/joy/Desktop/test/rev.tfc", "w") as textobj:
         for n in rever:
             textobj.write(n)
     execfile('/home/joy/Desktop/test/xys.py')
     sheet2 = pd.read_csv("/home/joy/Desktop/outputz.csv")
     sheet2 = sheet2.dropna(axis=1)
     sheet1 = sheet1.merge(sheet2, on='Test Pattern')
-sheet1.to_csv("/home/joy/Desktop/final.csv", index=False)
-print "Forward Simulation of CTS:"
 print sheet1
+sheet1.to_csv("/home/joy/Desktop/finals.csv", index=False)
+execfile('/home/joy/Desktop/test/fault_coverage.py')

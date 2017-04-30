@@ -1,22 +1,24 @@
 # This Program takes a .tfc file as input, generates all possible gate level equations,
 # generates all possible input permutations and display all gate level output matrices
 import re
-def dels():
-	readFile = open("genf.py")
 
-	lines = readFile.readlines()
-	print lines
-	readFile.close()
-	w = open("genf.py",'w')
-	w.writelines(lines[:-3])
-	w.close()
-count=0
-name = 'a.tfc'
-with open('main.txt', 'r') as fin:
+
+def dels():
+    readFile = open("/home/joy/Desktop/test/genf.py")
+    lines = readFile.readlines()
+    readFile.close()
+    w = open("/home/joy/Desktop/test/genf.py", 'w')
+    w.writelines(lines[:-3])
+    w.close()
+
+
+count = 0
+name = '/home/joy/Desktop/test/a.tfc'
+with open('/home/joy/Desktop/test/main.txt', 'r') as fin:
     data = fin.read().splitlines(True)
-with open('main.txt', 'w') as fout:
+with open('/home/joy/Desktop/test/main.txt', 'w') as fout:
     fout.writelines(data[1:])
-with open('a.tfc', 'r') as datafile:
+with open('/home/joy/Desktop/test/a.tfc', 'r') as datafile:
     for line in datafile:
         line1 = line.strip()
         if '.v' in line1:
@@ -27,7 +29,8 @@ with open('a.tfc', 'r') as datafile:
             asd = len(cc)
             asd1 = str(asd)
             break
-print bb
+
+
 def neg_ctl(hexo):
     for mns in range(len(hexo)):
         hu = str(hexo[mns])
@@ -49,7 +52,7 @@ def neg_ctl(hexo):
         jk1 = ''.join(jk)
         lo = jk1 + hss
 
-        garbage.write('    '+lo + '\n')
+        garbage.write('    ' + lo + '\n')
 
 
 def strings(bc):
@@ -61,13 +64,13 @@ def strings(bc):
             bc[j] = 'str(' + bc[j] + ')'
 
 
-garbage = open('genf.py', 'w')
+garbage = open('/home/joy/Desktop/test/genf.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
 garbage.write("outs=open('faulty_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
-garbage.write("total=list()"+ "\n")
+garbage.write("total=list()" + "\n")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_push(input_result):" + "\n")
@@ -84,28 +87,40 @@ garbage.write("            result[n] = 1" + "\n")
 garbage.write("        if i == False:" + "\n")
 garbage.write("            result[n] = 0" + "\n")
 garbage.write("\n")
-garbage.write("def getheader(cc):"+"\n")
-garbage.write("    che=['Input']"+"\n")
-garbage.write("    for ch in range(cc):"+"\n")
-garbage.write("        che.append('Level - '+str(ch))"+"\n")
-garbage.write("        if ch == cc-1:"+"\n")
-garbage.write("            che.append('Output')"+"\n")
+garbage.write("def getheader(cc):" + "\n")
+garbage.write("    che=['Level-0']" + "\n")
+garbage.write("    for ch in range(cc):" + "\n")
+garbage.write("        che.append('Level - '+str(ch+1))" + "\n")
+garbage.write("        if ch == cc-1:" + "\n")
+garbage.write("            che.append('Level-'+str(ch+2))" + "\n")
 garbage.write("    return che")
 garbage.write("\n")
+garbage.write("\n")
+garbage.write("def getheaders(cc,lines):"+"\n")
+garbage.write("    che=[lines]"+"\n")
+garbage.write("    for ch in range(cc):"+"\n")
+garbage.write("        che.append(lines)"+"\n")
+garbage.write("        if ch == cc-1:"+"\n")
+garbage.write("            che.append(lines)"+"\n")
+garbage.write("    return che")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("lines =str('"+bb+"')")
+garbage.write("\n")
+garbage.write("lines=lines.replace(',','')")
 garbage.write("\n")
 garbage.write("\n")
 
 garbage.write("testPatterns = table = list(itertools.product([0, 1], repeat=" + asd1 + "))" + "\n")
 garbage.write("for p in testPatterns:" + "\n")
 garbage.write("    levels = list()" + "\n")
-print (bb),'a'
 garbage.write('    ' + bb + ' = p' + '\n')
 garbage.write("    result = [" + bb + "]\n")
 garbage.write("    truth_push(result)" + "\n")
-with open('main.txt', 'r+') as exp:
-
+with open('/home/joy/Desktop/test/main.txt', 'r+') as exp:
     for lenn in exp:
-	test=0
+        test = 0
         count += 1
         garbage.write("\n")
 
@@ -136,8 +151,6 @@ with open('main.txt', 'r+') as exp:
         lenn = linen
         final_len = len(lenn)
         if len(lenn) == 1:
-            print lenn
-            print 'ssss'
             benn = list(lenn)
             benn.append(' =')
             benn.append(' not')
@@ -147,14 +160,13 @@ with open('main.txt', 'r+') as exp:
             garbage.write('    ' + benn1 + '\n')
         if len(lenn) == 3:
             tren = list(lenn)
-            print tren[0]
-            if tren[0]=='0':
-                garbage.write('    '+tren[2]+'=0'+'\n')
-                count-=1
+            if tren[0] == '0':
+                garbage.write('    ' + tren[2] + '=0' + '\n')
+                count -= 1
                 continue
-            if tren[0]=='1':
-                garbage.write('    '+tren[2]+'=1'+'\n')
-                count-=1
+            if tren[0] == '1':
+                garbage.write('    ' + tren[2] + '=1' + '\n')
+                count -= 1
                 continue
             nn = len(tren)
             tren1 = list(tren[nn - 1])
@@ -174,26 +186,25 @@ with open('main.txt', 'r+') as exp:
                 neg_ctl(lenn)
         if len(lenn) > 3:
             list1 = list(lenn)
-            print list1
-            if list1[0]=='&':
-		dels()
-		
-                garbage.write('    '+list1[2]+'='+list1[2]+ ' and '+ list1[4])
+            if list1[0] == '&':
+                dels()
+
+                garbage.write('    ' + list1[2] + '=' + list1[2] + ' and ' + list1[4])
                 garbage.write('\n')
-                garbage.write('    '+list1[4]+'='+list1[2])
-                count-=1
+                garbage.write('    ' + list1[4] + '=' + list1[2])
+                count -= 1
                 garbage.write("\n    #Bridging\n")
 
-		garbage.write("    result = [" + bb + "]\n")
-        	garbage.write("    truth_fix(result)" + "\n")
-        	garbage.write("    truth_push(result)" + "\n")
-		test=1
+                #garbage.write("    result = [" + bb + "]\n")
+                #garbage.write("    truth_fix(result)" + "\n")
+                #garbage.write("    truth_push(result)" + "\n")
+                test = 1
                 continue
-            if list1[0]=='^':
-                garbage.write('    '+list1[2]+'='+list1[2]+ ' or '+ list1[4])
+            if list1[0] == '^':
+                garbage.write('    ' + list1[2] + '=' + list1[2] + ' or ' + list1[4])
                 garbage.write('\n')
-                garbage.write('    '+list1[4]+'='+list1[2])
-                count-=1
+                garbage.write('    ' + list1[4] + '=' + list1[2])
+                count -= 1
                 continue
             num = len(list1)
             insert1 = num - 1
@@ -225,15 +236,14 @@ with open('main.txt', 'r+') as exp:
             garbage.write('    ' + qwerty + '\n')
             if "'" in str(lenn):
                 neg_ctl(lenn)
-	if test==0:
-        	garbage.write("    result = [" + bb + "]\n")
-        	garbage.write("    truth_fix(result)" + "\n")
-        	garbage.write("    truth_push(result)" + "\n")
-    garbage.write("    truth_push(result)"+"\n")
+        if test == 0:
+            garbage.write("    result = [" + bb + "]\n")
+            garbage.write("    truth_fix(result)" + "\n")
+            garbage.write("    truth_push(result)" + "\n")
+    # garbage.write("    truth_push(result)"+"\n")
     garbage.write("    total.append(levels)" + "\n")
 
-
-garbage.write('count = {0}'.format(str(count)))
+garbage.write('count = {0}'.format(str(count-1)))
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("che=list()")
@@ -242,7 +252,14 @@ garbage.write("\n")
 garbage.write("che=getheader(count)")
 garbage.write("\n")
 garbage.write("\n")
+garbage.write("\n")
+garbage.write("ches=getheaders(count,lines)")
+garbage.write("\n")
+garbage.write("\n")
 garbage.write("total.insert(0,che)")
+garbage.write("\n")
+garbage.write("\n")
+garbage.write("total.insert(1,ches)")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("sheet=pe.Sheet(total)")
@@ -251,11 +268,10 @@ garbage.write("\n")
 garbage.write("outs.write(str(sheet.content))")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("sheet.save_as('testsf.csv')")
+garbage.write("sheet.save_as('/home/joy/Desktop/test/testsf.csv')")
 
+garbage.write("\n")
 
 garbage.close()
-print 'running'
-execfile('testss.py')
-execfile('genf.py')
-
+#execfile('/home/joy/Desktop/test/testss.py')
+execfile('/home/joy/Desktop/test/genf.py')

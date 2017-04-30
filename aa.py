@@ -34,7 +34,6 @@ class UserWindow(QtGui.QMainWindow):
 
     def smart(self):
         res = subprocess.call(['python smart_ui.py'], shell=True)
-        #res = subprocess.call(['python smart_sim.py'], shell=True)
         res = subprocess.call(['python smart_dis.py'], shell=True)
 
     def detail(self):

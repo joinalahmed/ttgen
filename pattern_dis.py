@@ -17,7 +17,7 @@ class UserWindow(QtGui.QMainWindow):
 
 
     def specData(self):
-        with open('/home/joy/Desktop/final.csv', 'rb') as csvInput:
+        with open('/home/joy/Desktop/test/test_patterns_minimised.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
                 if row > 0:
                     items = [QtGui.QStandardItem(field) for field in row]

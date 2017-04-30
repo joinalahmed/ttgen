@@ -142,7 +142,6 @@ with open('main11.txt', 'r+') as exp:
                          QC = QC + 4
                     i=i+1
 
-sheet = pe.get_sheet(file_name="details.csv")
+sheet = pe.get_sheet(file_name="/home/joy/Desktop/test/details.csv")
 sheet.row[-1] = ['Quantum', 'Cost', '=',QC]
 sheet.save_as("/home/joy/Desktop/test/details.csv")
-print sheet

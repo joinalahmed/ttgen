@@ -1,6 +1,7 @@
 import sys
 import subprocess
 from PyQt4 import QtGui, uic
+import shutil
 
 qtCreatorFile = "/home/joy/Desktop/test/stuckat1.ui"  # Enter file here.
 
@@ -32,6 +33,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         print data
         res = subprocess.call(['python /home/joy/Desktop/test/stuck.py'], shell=True)
         res = subprocess.call(['python /home/joy/Desktop/test/comp.py'], shell=True)
+        shutil.copy2('../../Desktop/test/faultfree.txt', '../../Desktop/test/main.txt')
         if res == 0:
             sys.exit(app.exec_())
 

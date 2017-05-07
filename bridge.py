@@ -194,10 +194,6 @@ with open('/home/joy/Desktop/test/main.txt', 'r+') as exp:
                 garbage.write('    ' + list1[4] + '=' + list1[2])
                 count -= 1
                 garbage.write("\n    #Bridging\n")
-
-                #garbage.write("    result = [" + bb + "]\n")
-                #garbage.write("    truth_fix(result)" + "\n")
-                #garbage.write("    truth_push(result)" + "\n")
                 test = 1
                 continue
             if list1[0] == '^':
@@ -240,7 +236,6 @@ with open('/home/joy/Desktop/test/main.txt', 'r+') as exp:
             garbage.write("    result = [" + bb + "]\n")
             garbage.write("    truth_fix(result)" + "\n")
             garbage.write("    truth_push(result)" + "\n")
-    # garbage.write("    truth_push(result)"+"\n")
     garbage.write("    total.append(levels)" + "\n")
 
 garbage.write('count = {0}'.format(str(count-1)))
@@ -269,9 +264,6 @@ garbage.write("outs.write(str(sheet.content))")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("sheet.save_as('/home/joy/Desktop/test/testsf.csv')")
-
 garbage.write("\n")
-
 garbage.close()
-#execfile('/home/joy/Desktop/test/testss.py')
 execfile('/home/joy/Desktop/test/genf.py')

@@ -1,19 +1,22 @@
-
 import sys
 import csv
-from PyQt4 import QtGui,QtCore
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 import subprocess
 from array import *
+import shutil
 
-res=1
+res = 1
+
+
 class UserWindow(QtGui.QMainWindow):
-
     def __init__(self, parent=None):
         super(UserWindow, self).__init__()
+        self.scnBtn = QtGui.QPushButton("Save")
         self.specModel = QtGui.QStandardItemModel(self)
-        self.specList = self.createSpecTable()
+        self.specList = self.createSpecTable
         self.initUI()
+        self.scnBtn.clicked.connect(self.file_save)
 
 
     def specData(self):
@@ -23,8 +26,10 @@ class UserWindow(QtGui.QMainWindow):
                     items = [QtGui.QStandardItem(field) for field in row]
                     self.specModel.appendRow(items)
 
+    @property
     def createSpecTable(self):
         self.specTable = QtGui.QTableView()
+        self.specTable.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         # This is a test header - different from what is needed
         specHdr = ['Test', 'Date', 'Time', 'Type']
         self.specData()
@@ -35,22 +40,31 @@ class UserWindow(QtGui.QMainWindow):
         vHead.setVisible(False)
         hHead = self.specTable.horizontalHeader()
         hHead.setStretchLastSection(True)
+        hHead.setVisible(False)
         self.specTable.sortByColumn(3, Qt.DescendingOrder)
         return self.specTable
 
+    def file_save(self):
+        subprocess.call(['python ../../Desktop/test/csvtoimagerev.py'], shell=True)
+        name = QtGui.QFileDialog.getSaveFileName(self, "Choose PNG Image", "../../Desktop/", "PNG (*.png)")
+        name = str(name)
+        shutil.copy("../../Desktop/test/reverse.png", name)
+
     def initUI(self):
         self.ctr_frame = QtGui.QWidget()
-              # List Window
+        # List Window
         self.specList.setModel(self.specModel)
-               #self.specListF.setModel(self.specModel)
+        # self.specListF.setModel(self.specModel)
 
         # Layout of Widgets
         pGrid = QtGui.QGridLayout()
         pGrid.setSpacing(5)
-        pGrid.addWidget(self.specList,4,0,4,50)
-        #pGrid.addWidget(self.specListF)
-        if res==0:
-            pGrid.addWidget(self.label,5,0)
+        pGrid.addWidget(self.scnBtn, 2, 0)
+
+        pGrid.addWidget(self.specList, 4, 0, 4, 50)
+        # pGrid.addWidget(self.specListF)
+        if res == 0:
+            pGrid.addWidget(self.label, 5, 0)
 
         self.ctr_frame.setLayout(pGrid)
         self.setCentralWidget(self.ctr_frame)
@@ -65,7 +79,6 @@ class specTableModel(QAbstractTableModel):
         QAbstractTableModel.__init__(self, parent, *args)
         self.arraydata = datain
         self.headerdata = headerdata
-
 
     def rowCount(self, parent):
         return 0
@@ -87,17 +100,17 @@ class specTableModel(QAbstractTableModel):
 
 
 def main():
-
+    subprocess.call(['python ../../Desktop/test/sort.py'], shell=True)
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
-    palette=QtGui.QPalette()
-    palette.setColor(QtGui.QPalette.Background,QtCore.Qt.cyan)
+    palette = QtGui.QPalette()
     app.setPalette(palette)
     ex = UserWindow()
-    ex.resize(1050,420)
-    ex.move(150,150)
+    ex.resize(1050, 420)
+    ex.move(150, 150)
     ex.show()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()

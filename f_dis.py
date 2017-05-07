@@ -1,23 +1,28 @@
-
 import sys
 import csv
-from PyQt4 import QtGui,QtCore
+from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import *
 import subprocess
 from array import *
 
-res=1
-class UserWindow(QtGui.QMainWindow):
+res = 1
 
+
+def clicked():
+    subprocess.call(['python /home/joy/Desktop/test/test_display.py'], shell=True)
+
+
+class UserWindow(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(UserWindow, self).__init__()
+        self.specTable = QtGui.QTableView()
+        self.scnBtn = QtGui.QPushButton("Test Patterns")
+        self.label = QtGui.QLabel("Truth Table After Injecting Faults In the Circuit")
+        self.ctr_frame = QtGui.QWidget()
         self.specModel = QtGui.QStandardItemModel(self)
         self.specList = self.createSpecTable()
         self.initUI()
-        self.scnBtn.clicked.connect(self.clicked)
-    def clicked(self):
-        subprocess.call(['python /home/joy/Desktop/test/test_display.py'], shell=True)
-
+        self.scnBtn.clicked.connect(clicked)
 
     def specData(self):
         with open('/home/joy/Desktop/test/testsf.csv', 'rb') as csvInput:
@@ -27,7 +32,6 @@ class UserWindow(QtGui.QMainWindow):
                     self.specModel.appendRow(items)
 
     def createSpecTable(self):
-        self.specTable = QtGui.QTableView()
         # This is a test header - different from what is needed
         specHdr = ['Test', 'Date', 'Time', 'Type']
         self.specData()
@@ -37,32 +41,28 @@ class UserWindow(QtGui.QMainWindow):
         vHead = self.specTable.verticalHeader()
         vHead.setVisible(False)
         hHead = self.specTable.horizontalHeader()
-        hHead.setStretchLastSection(True)
+        hHead.setVisible(False)
         self.specTable.sortByColumn(3, Qt.DescendingOrder)
         return self.specTable
 
     def initUI(self):
-        self.ctr_frame = QtGui.QWidget()
-        self.label = QtGui.QLabel("Truth Table After Injecting Faults In the Circuit")
-
 
         # List Window
         self.specList.setModel(self.specModel)
-        self.scnBtn = QtGui.QPushButton("Test Patterns")
 
-        #self.specListF.setModel(self.specModel)
+        # self.specListF.setModel(self.specModel)
 
         # Layout of Widgets
         pGrid = QtGui.QGridLayout()
         pGrid.setSpacing(5)
-        pGrid.addWidget(self.label,2,25)
+        pGrid.addWidget(self.label, 2, 25)
 
-        pGrid.addWidget(self.scnBtn,3,0)
+        pGrid.addWidget(self.scnBtn, 3, 0)
 
-        pGrid.addWidget(self.specList,4,0,4,50)
-        #pGrid.addWidget(self.specListF)
-        if res==0:
-            pGrid.addWidget(self.label,5,0)
+        pGrid.addWidget(self.specList, 4, 0, 4, 50)
+        # pGrid.addWidget(self.specListF)
+        if res == 0:
+            pGrid.addWidget(self.label, 5, 0)
 
         self.ctr_frame.setLayout(pGrid)
         self.setCentralWidget(self.ctr_frame)
@@ -72,12 +72,11 @@ class UserWindow(QtGui.QMainWindow):
 
 
 class specTableModel(QAbstractTableModel):
-    def __init__(self, datain, headerdata, parent=None, *args):
+    def __init__(self, datain, headerdata, parent=None):
 
-        QAbstractTableModel.__init__(self, parent, *args)
+        QAbstractTableModel.__init__(self, parent)
         self.arraydata = datain
         self.headerdata = headerdata
-
 
     def rowCount(self, parent):
         return 0
@@ -99,17 +98,17 @@ class specTableModel(QAbstractTableModel):
 
 
 def main():
-
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
-    palette=QtGui.QPalette()
-    palette.setColor(QtGui.QPalette.Background,QtCore.Qt.cyan)
+    palette = QtGui.QPalette()
+    palette.setColor(QtGui.QPalette.Background, QtCore.Qt.cyan)
     app.setPalette(palette)
     ex = UserWindow()
-    ex.resize(1050,420)
-    ex.move(150,150)
+    ex.resize(1050, 420)
+    ex.move(150, 150)
     ex.show()
     sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
     main()

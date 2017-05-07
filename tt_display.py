@@ -4,6 +4,8 @@ import sys
 from PyQt4 import QtGui
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
+from PIL import Image
+import shutil
 
 res = 1
 
@@ -19,13 +21,11 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn.clicked.connect(self.file_save)
 
     def file_save(self):
-        name = QtGui.QFileDialog.getSaveFileName(self, "Select CSV File","../../Desktop/", "CSV (*.csv)")
-        file_edit = open(name, 'w')
-        csvfile = open("../../Desktop/test/tests.csv", 'rb')
-        lines = csv.reader(csvfile)
-        write = csv.writer(file_edit)
-        write.writerows(lines)
-        csvfile.close()
+        subprocess.call(['python ../../Desktop/test/csvtoimagesmart.py'], shell=True)
+        name = QtGui.QFileDialog.getSaveFileName(self, "Choose PNG Image","../../Desktop/", "PNG (*.png)")
+        name=str(name)
+        shutil.copy("../../Desktop/test/smart.png",name)
+
 
     def specData(self):
         with open('../../Desktop/test/tests.csv', 'rb') as csvInput:

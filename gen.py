@@ -39,10 +39,61 @@ testPatterns = table = list(itertools.product([0, 1], repeat=4))
 for p in testPatterns:
     levels = list()
     a,b,c,d = p
+    #constant
     result = [a,b,c,d]
     truth_push(result)
 
+    b = (a and c and d) ^ b
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
     a = c ^ a
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    c = (a and d) ^ c
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    a = c ^ a
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = (a and b and c) ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = (a and c) ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    b = (a and d) ^ b
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = (a and b) ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = c ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    d = b ^ d
+    result = [a,b,c,d]
+    truth_fix(result)
+    truth_push(result)
+
+    a = (b and d) ^ a
     result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
@@ -57,7 +108,7 @@ for p in testPatterns:
     truth_fix(result)
     truth_push(result)
 
-    d = (a and b) ^ d
+    c = d ^ c
     result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
@@ -67,47 +118,12 @@ for p in testPatterns:
     truth_fix(result)
     truth_push(result)
 
-    c = b ^ c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = (b and c) ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = b ^ a
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = (a and b) ^ c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = (c and d) ^ a
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = (a and d) ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = b ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = d ^ c
+    a = c ^ a
     result = [a,b,c,d]
     truth_fix(result)
     truth_push(result)
     total.append(levels)
-count = 12
+count = 15
 
 che=list()
 

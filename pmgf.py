@@ -1,7 +1,7 @@
 import sys
 import subprocess
 from PyQt4 import QtGui, uic
-
+import shutil
 qtCreatorFile = "../../Desktop/test/pmgf.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
@@ -37,6 +37,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             file.writelines(data)
         res=subprocess.call(['python ../../Desktop/test/fault_gen.py'], shell=True)
         res = subprocess.call(['python ../../Desktop/test/comp.py'], shell=True)
+        shutil.copy2('../../Desktop/test/faultfree.txt', '../../Desktop/test/main.txt')
         if res == 0:
             sys.exit(app.exec_())
 

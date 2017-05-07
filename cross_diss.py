@@ -1,7 +1,7 @@
 import sys
 import subprocess
 from PyQt4 import QtGui, uic
-
+import shutil
 qtCreatorFile = "../../Desktop/test/CD.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
@@ -18,9 +18,9 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
     def clicked(self):
         n = int(self.level.toPlainText())+1
         dappear = str(self.line.toPlainText())
-        with open('../../Desktop/test/main.txt', 'r') as file:
+        with open('../../Desktop/test/main.txt', 'r') as file_man:
             # read a list of lines into data
-            data = file.readlines()
+            data = file_man.readlines()
 
         # now inject fault in nth level, note that you have to add a newline
         if dappear in data[0]:
@@ -28,13 +28,13 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                 data[n] = data[n].replace(dappear, ' ')
                 data[n] = data[n].replace(', ', '')
                 data[n] = data[n].replace(' ,', '')
-            #data[n] = data[n].replace(',,', ',')
             data[n] = data[n].replace(' \n', '\n')
         # and write everything back
-        with open('../../Desktop/test/main.txt', 'w') as file:
-            file.writelines(data)
-        res=subprocess.call(['python ../../Desktop/test/fault_gen.py'], shell=True)
+        with open('../../Desktop/test/main.txt', 'w') as file_man:
+            file_man.writelines(data)
+        subprocess.call(['python ../../Desktop/test/fault_gen.py'], shell=True)
         res = subprocess.call(['python ../../Desktop/test/comp.py'], shell=True)
+        shutil.copy2('../../Desktop/test/faultfree.txt', '../../Desktop/test/main.txt')
         if res == 0:
             sys.exit(app.exec_())
 
@@ -42,6 +42,6 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     window = MyApp()
     window.show()
-    window.move(550,250)
+    window.move(550, 250)
 
     sys.exit(app.exec_())

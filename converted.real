@@ -1,0 +1,76 @@
+.version 1.0
+.numvars 4
+.variables a b c d 
+.inputs a b c d 
+.outputs a b c d 
+.begin
+
+# LEVEL UNDER CONVERSION- 0, START
+v a
+v a c
+v c d
+t2 d b
+v+ c d
+v+ a c
+v+ a
+# END
+t2 c a
+
+# LEVEL UNDER CONVERSION- 2, START
+v a
+v a d
+t2 d c
+v+ a d
+v+ a
+# END
+t2 c a
+
+# LEVEL UNDER CONVERSION- 4, START
+v a
+v a b
+v b c
+t2 c d
+v+ b c
+v+ a b
+v+ a
+# END
+
+# LEVEL UNDER CONVERSION- 5, START
+v a
+v a c
+t2 c d
+v+ a c
+v+ a
+# END
+
+# LEVEL UNDER CONVERSION- 6, START
+v a
+v a d
+t2 d b
+v+ a d
+v+ a
+# END
+
+# LEVEL UNDER CONVERSION- 7, START
+v a
+v a b
+t2 b d
+v+ a b
+v+ a
+# END
+t2 c d
+t2 b d
+
+# LEVEL UNDER CONVERSION- 10, START
+v b
+v b d
+t2 d a
+v+ b d
+v+ b
+# END
+t2 a d
+t1 d
+t2 d c
+t2 d b
+t2 c a
+.end

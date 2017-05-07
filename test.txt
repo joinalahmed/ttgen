@@ -1,0 +1,17 @@
+
+t,a,c,d,b
+t,c,a
+t,a,d,c
+t,c,a
+t,a,b,c,d
+t,a,c,d
+t,a,d,b
+t,a,b,d
+t,c,d
+t,b,d
+t,b,d,a
+t,a,d
+t,d
+t,d,c
+t,d,b
+t,c,a

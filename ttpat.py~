@@ -1,0 +1,130 @@
+import itertools, re
+from setuptools.package_index import unique_everseen
+
+
+def checker(liter):
+    check_list = list()
+    for im in range(len(liter)):
+        af = str(liter[im])
+        mid_list = af
+        for xx in range(len(mid_list)):
+            for ro in range(len(mid_list)):
+                if mid_list[ro] == mid_list[xx]:
+                    continue
+                else:
+                    alp = str(xx + 1) + str(ro + 1)
+                    check_list.append(alp)
+            check_list = list(unique_everseen(check_list))
+            check_list.sort()
+    return check_list
+
+
+# Compliments The Input Test-Pattern
+
+def compliment_stuck(item):
+    d = list()
+    for k in range(len(item)):
+        copy = list(item[k])
+        for l in range(len(copy)):
+            if copy[l] == str(1):
+                copy[l] = str(0)
+                continue
+            if copy[l] == str(0):
+                copy[l] = str(1)
+        copy = ''.join(copy)
+        d.append(copy)
+    d = ''.join(d)
+    return d
+
+
+# Embeds alternating 1's and 0's
+
+def main_fun(append_list):
+    mid_list1 = list()
+    for ins in range(len(append_list)):
+        appended = str(append_list[ins])
+        add0 = appended + '0'
+        add1 = appended + '1'
+        mid_list1.append(add0)
+        mid_list1.append(add1)
+    return list(unique_everseen(mid_list1))
+
+
+def lines_count():
+    with open('/home/joy/Desktop/test/rev.tfc', 'r') as datafile:
+        # print dis
+        for line in datafile:
+            line1 = line.strip()
+            if '.v' in line1:
+                aa = line1
+                bb = aa
+                bb = bb[3:]
+                cc = re.split(',', bb)
+                asd = len(cc)
+                asd1 = str(asd)
+                break
+        return asd
+
+
+
+
+
+def mini(test_patterns):
+    test_pattern=list()
+    #print test_pattern
+    for l in range(len(test_patterns)):
+        test_pattern.append(str(test_patterns[l]))
+    #print test_pattern
+    num_lines = lines_count()
+    test_set = []
+    # length_pattern = len(test_pattern)
+    # print length_pattern
+    permutations = list()
+    # Generate possible Faults
+    line_num = lines_count()
+    for lines in range(1, line_num + 1):
+        permutations.append(lines)
+    #print permutations
+    permutations = list(itertools.permutations(permutations, 2))
+    ##print permutations
+    for i in range(len(permutations)):
+        var1 = str(permutations[i][0])
+        for j in range(1, len(permutations[i])):
+            var1 += str(permutations[i][j])
+        permutations[i] = var1
+    permutations = list(unique_everseen(permutations))
+    permutations.sort()
+    #print permutations,'t'
+    combs = []
+    # Generate Sets from Test-Pattern
+    for length_pattern in range(len(test_pattern)):
+        for combination in range(length_pattern, len(test_pattern) + 1):
+            pattern = [list(x) for x in itertools.combinations(test_pattern, combination)]
+            # print pattern
+            combs.extend(pattern)
+    #print combs
+    # Check Faults Covered By Sets of Test-Pattern
+    for combinations in range(len(combs)):
+        #print combs[combinations]
+        test_result = checker(combs[combinations])
+        test_result.sort()
+        #print test_result,'p'
+        if str(test_result) == str(permutations):
+            # If all Faults are covered, Print The Test Set
+            test_set = combs[combinations]
+            test_pattern = combs[combinations]
+            #print(test_set),'h'
+            break
+    #print test_pattern,'l'
+    return test_set
+            # print test_set
+
+def start(test_patterns):
+    #print test_patterns
+    cts = list()
+    for i in range(len(test_patterns)):
+        #print test_patterns[i]
+        cts.append(mini(test_patterns[i]))
+        #print ctss
+    #print cts
+    return cts

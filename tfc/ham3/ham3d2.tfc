@@ -1,0 +1,9 @@
+.v a,b,c
+.i a,b,c
+.o a,b,c
+BEGIN
+t3 b,c,a
+t2 a,b
+f2 b,c
+t2 a,b
+END

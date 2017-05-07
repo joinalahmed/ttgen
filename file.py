@@ -1,0 +1,39 @@
+import sys
+from PyQt4 import QtGui, QtCore
+ 
+class Main(QtGui.QMainWindow):
+ 
+    def __init__(self):
+        QtGui.QMainWindow.__init__(self)
+        self.initUI()
+ 
+    def initUI(self):
+        
+        self.txt = QtGui.QTextEdit(self)
+        self.setCentralWidget(self.txt)
+         
+#---------Window settings --------------------------------
+         
+        self.setGeometry(300,300,300,300)
+        self.setWindowTitle("Simple Text Editor")
+        self.show()
+ 
+#---------Slots-------------------------------------------
+
+    def openFile(self):
+        filename = "a.tfc"
+        f = open(filename, 'r')
+        filedata = f.read()
+        self.txt.setText(filedata)
+        f.close()
+    openFile(self)
+         
+def main():
+    app = QtGui.QApplication(sys.argv)
+    main = Main()
+    main.show()
+ 
+    sys.exit(app.exec_())
+ 
+if __name__ == "__main__":
+    main()

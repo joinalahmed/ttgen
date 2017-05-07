@@ -1,0 +1,34 @@
+Gate,Controls,Target,Gate Type
+1,"a,c,d","b
+",TOFFOLI GATE
+2,c,"a
+",C-NOT GATE
+3,"a,d","c
+",TOFFOLI GATE
+4,c,"a
+",C-NOT GATE
+5,"a,b,c","d
+",TOFFOLI GATE
+6,"a,c","d
+",TOFFOLI GATE
+7,"a,d","b
+",TOFFOLI GATE
+8,"a,b","d
+",TOFFOLI GATE
+9,c,"d
+",C-NOT GATE
+10,b,"d
+",C-NOT GATE
+11,"b,d","a
+",TOFFOLI GATE
+12,a,"d
+",C-NOT GATE
+13,NULL,"d
+",NOT GATE
+14,d,"c
+",C-NOT GATE
+15,d,"b
+",C-NOT GATE
+16,c,"a
+",C-NOT GATE
+Quantum,Cost,=,60

@@ -1,0 +1,16 @@
+.v a,b,c,d
+.i a,b,c,d
+.o a,b,c,d
+BEGIN
+F4 c,d,a,b
+F2 a,b
+F3 d,a,c
+F2 a,c
+F3 d,a,b
+F4 a,c,b,d
+F3 a,c,d
+F3 b,a,d
+F2 a,d
+F3 a,b,c
+F3 c,b,d
+END

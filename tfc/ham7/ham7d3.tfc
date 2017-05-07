@@ -1,0 +1,32 @@
+.v a,b,c,d,e,f,g
+.i a,b,c,d,e,f,g
+.o a,b,c,d,e,f,g
+BEGIN
+T2 e,f
+T2 g,b
+T2 g,c
+T3 e,f,g
+T2 g,e
+T2 g,f
+T2 d,c
+T2 d,a
+T2 d,b
+T3 c,f,d
+T3 e,g,c
+T3 c,f,d
+T2 d,b
+T3 f,g,e
+T2 d,a
+T2 d,f
+T3 e,g,d
+T2 b,e
+T2 c,b
+T2 d,g
+T2 c,f
+T2 b,d
+T2 d,a
+T2 a,d
+T2 a,c
+END
+# size = 25 cost = 49
+# exhaustive driver on size 27

@@ -1,0 +1,23 @@
+.v a,b,c,d,e,f,g
+.i a,b,c,d,e
+.o e,f,g
+.c 0,0
+BEGIN
+T2 b,f
+T2 b,a
+T2 c,b
+T3 a,b,f
+T2 c,a
+T2 a,e
+T2 a,d
+T3 d,e,a
+T2 a,f
+T1 b
+T4 a,b,c,g
+T1 b
+T5 a,b,d,e,g
+T3 d,e,a
+T2 d,a
+T2 a,e
+END
+# size = 16 cost = 67

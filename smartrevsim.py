@@ -1,6 +1,7 @@
 # This Program takes a reversed .tfc file as input, generates all possible gate level equations,
 # generates all possible input permutations and display all gate level output matrices
 import re
+import subprocess
 count = 0
 
 name = '../../Desktop/test/rev.tfc'

@@ -3,7 +3,7 @@ import subprocess
 from PyQt4 import QtGui, uic
 import shutil
 
-qtCreatorFile = "/home/joy/Desktop/test/stuckat1.ui"  # Enter file here.
+qtCreatorFile = "../../Desktop/test/stuckat1.ui"  # Enter file here.
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
@@ -19,7 +19,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
     def clicked(self):
         n = int(self.level.toPlainText())
         line = str(self.line.toPlainText())
-        with open('/home/joy/Desktop/test/main.txt', 'r') as file:
+        with open('../../Desktop/test/main.txt', 'r') as file:
             # read a list of lines into data
             data = file.readlines()
 
@@ -28,11 +28,11 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         if line in data[0]:
             data.insert(n + 1, '1' + ',' + line + '\n')
         # and write everything back
-        with open('/home/joy/Desktop/test/main.txt', 'w') as file:
+        with open('../../Desktop/test/main.txt', 'w') as file:
             file.writelines(data)
         print data
-        res = subprocess.call(['python /home/joy/Desktop/test/stuck.py'], shell=True)
-        res = subprocess.call(['python /home/joy/Desktop/test/comp.py'], shell=True)
+        res = subprocess.call(['python ../../Desktop/test/stuck.py'], shell=True)
+        res = subprocess.call(['python ../../Desktop/test/comp.py'], shell=True)
         shutil.copy2('../../Desktop/test/faultfree.txt', '../../Desktop/test/main.txt')
         if res == 0:
             sys.exit(app.exec_())

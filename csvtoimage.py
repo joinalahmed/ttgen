@@ -10,6 +10,7 @@ PIXEL_OFF = 255  # PIL color to use for "off"
 
 def main():
     image = text_image('../../Desktop/test/correct_output.txt')
+    image.show()
     image.save('../../Desktop/test/content.png')
 
 
@@ -17,7 +18,7 @@ def text_image(text_path, font_path=None):
     grayscale = 'L'
     with open(text_path) as text_file:
         lines = tuple(l.rstrip() for l in text_file.readlines())
-    large_font =50
+    large_font = 50
     font_path = font_path or 'cour.ttf'
     try:
         font = PIL.ImageFont.truetype(font_path, size=large_font)

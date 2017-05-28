@@ -21,7 +21,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
             # read a list of lines into data
             data = file_main.readlines()
 
-        data.insert(n + 1, '&' + ',' + line + '\n')
+        data.insert(n+1 , '&' + ',' + line + '\n')
         # and write everything back
         with open('../../Desktop/test/main.txt', 'w') as file_main:
             file_main.writelines(data)

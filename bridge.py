@@ -197,10 +197,13 @@ with open('/home/joy/Desktop/test/main.txt', 'r+') as exp:
                 test = 1
                 continue
             if list1[0] == '^':
+                dels()
                 garbage.write('    ' + list1[2] + '=' + list1[2] + ' or ' + list1[4])
                 garbage.write('\n')
                 garbage.write('    ' + list1[4] + '=' + list1[2])
                 count -= 1
+                garbage.write("\n    #Bridging\n")
+                test = 1
                 continue
             num = len(list1)
             insert1 = num - 1

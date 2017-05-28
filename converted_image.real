@@ -1,55 +1,21 @@
 .version 1.0
-.numvars 4
-.variables a b c d 
-.inputs a b c d 
-.outputs a b c d 
+.numvars 3
+.variables a b c 
+.inputs a b c 
+.outputs a b c 
 .begin
-v a
-v a c
-v c d
-t2 d b
-v+ c d
-v+ a c
-v+ a
-t2 c a
-v a
-v a d
-t2 d c
-v+ a d
-v+ a
-t2 c a
-v a
-v a b
-v b c
-t2 c d
-v+ b c
-v+ a b
-v+ a
-v a
-v a c
-t2 c d
-v+ a c
-v+ a
-v a
-v a d
-t2 d b
-v+ a d
-v+ a
-v a
-v a b
-t2 b d
-v+ a b
-v+ a
-t2 c d
-t2 b d
+t1 c
+t2 a c
+t2 c b
 v b
-v b d
-t2 d a
-v+ b d
-v+ b
-t2 a d
-t1 d
-t2 d c
-t2 d b
+v b c
 t2 c a
+v+ b c
+v+ b
+v a
+v a b
+t2 b c
+v+ a b
+v+ a
+t2 b c
 .end

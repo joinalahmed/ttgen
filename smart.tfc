@@ -3,8 +3,9 @@
 .o a,b,c,d
 BEGIN
 t2 c,a
-t3 a,d,c
-t2 c,a
 t4 a,b,c,d
 t3 a,c,d
+t3 a,d,b
+t3 a,b,d
+t2 c,d
 END

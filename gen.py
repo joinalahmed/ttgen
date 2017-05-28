@@ -2,7 +2,7 @@ import itertools
 import pyexcel as pe
 
 outs=open('../../Desktop/test/correct_output.txt', 'w')
-a = 2 ** 4
+a = 2 ** 3
 total=list()
 
 
@@ -33,97 +33,42 @@ def getheaders(cc,lines):
     return che
 
 
-lines =str('a,b,c,d')
+lines =str('a,b,c')
 lines=lines.replace(',','')
-testPatterns = table = list(itertools.product([0, 1], repeat=4))
+testPatterns = table = list(itertools.product([0, 1], repeat=3))
 for p in testPatterns:
     levels = list()
-    a,b,c,d = p
+    a,b,c = p
     #constant
-    result = [a,b,c,d]
+    result = [a,b,c]
     truth_push(result)
 
-    b = (a and c and d) ^ b
-    result = [a,b,c,d]
+    a=(b and c)^a
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    a = c ^ a
-    result = [a,b,c,d]
+    b=c^b
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    c = (a and d) ^ c
-    result = [a,b,c,d]
+    c=b^c
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    a = c ^ a
-    result = [a,b,c,d]
+    c=a^c
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
 
-    d = (a and b and c) ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = (a and c) ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = (a and d) ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = (a and b) ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = c ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = b ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = (b and d) ^ a
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = a ^ d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    d = not d
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    c = d ^ c
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    b = d ^ b
-    result = [a,b,c,d]
-    truth_fix(result)
-    truth_push(result)
-
-    a = c ^ a
-    result = [a,b,c,d]
+    b=c^b
+    result = [a,b,c]
     truth_fix(result)
     truth_push(result)
     total.append(levels)
-count = 15
+count = 4
 
 che=list()
 
@@ -141,6 +86,7 @@ outs.write(str(sheet.content))
 
 sheet.save_as('../../Desktop/test/tests.csv')
 
+sheet.save_as('../../Desktop/test/smart.csv')
 sheet.save_as('../../Desktop/test/output.csv')
 value=len(sheet.column_range())
 sheet.column.select([0,value-1])

@@ -180,6 +180,5 @@ for inp in range(len(varn)):
 total.insert(0, che)
 total.append(che)
 sheet = pe.Sheet(total)
-print (sheet)
 sheet.save_as('../../Desktop/test/details.csv')
 res = subprocess.call(['python ../../Desktop/test/quantum.py'], shell=True)

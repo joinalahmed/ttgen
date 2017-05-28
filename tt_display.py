@@ -21,11 +21,10 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn.clicked.connect(self.file_save)
 
     def file_save(self):
-        subprocess.call(['python ../../Desktop/test/csvtoimagesmart.py'], shell=True)
-        name = QtGui.QFileDialog.getSaveFileName(self, "Choose PNG Image","../../Desktop/", "PNG (*.png)")
-        name=str(name)
-        shutil.copy("../../Desktop/test/smart.png",name)
-
+        subprocess.call(['python ../../Desktop/test/csvtoimage.py'], shell=True)
+        name = QtGui.QFileDialog.getSaveFileName(self, "Choose PNG Image", "../../Desktop/", "PNG (*.png)")
+        name = str(name)
+        shutil.copy("../../Desktop/test/content.png", name)
 
     def specData(self):
         with open('../../Desktop/test/tests.csv', 'rb') as csvInput:

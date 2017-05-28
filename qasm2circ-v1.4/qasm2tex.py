@@ -1,179 +1,4 @@
 #!/usr/bin/python
-#
-# File:   qasm2tex.py
-# Date:   22-Mar-04
-# Author: I. Chuang <ichuang@mit.edu>
-#
-# Python program to convert qasm to latex (and optionally generate ps/epsf/pdf)
-#
-# Usage:   qasm2tex in.qasm
-#
-# Outputs: latex file (to stdout)
-#
-# Notes: qasm instructions are as follows.  Lines begining with '#'
-# are comments.  All other lines should be of the form <b>op<b>args
-# where <b> is whitespace, and op-args pairs are:
-#
-# qubit   name,initval
-# cbit    name,initval
-# measure qubit
-# H       qubit
-# X	  qubit
-# Y	  qubit
-# Z	  qubit
-# S       qubit
-# T       qubit
-# nop	  qubit
-# zero    qubit
-# discard qubit
-# slash   qubit
-# dmeter  qubit
-# cnot    ctrl,target
-# c-z     ctrl,target
-# c-x     ctrl,target
-# toffoli ctrl1,ctrl2,target
-# ZZ      b1,b2
-# SS      b1,b2
-# swap    b1,b2
-# Utwo    b1,b2
-# space   qubit
-# def     opname,nctrl,texsym
-# defbox  opname,nbits,nctrl,texsym
-#
-# Where:
-#
-# def     - define a custom controlled single-qubit operation, with
-#           opname  = name of gate operation
-#           nctrl   = number of control qubits
-#           texsym  = latex symbol for the target qubit operation
-# defbox  - define a custom muti-qubit-controlled multi-qubit operation, with
-#           opname  = name of gate operation
-#           nbits   = number of qubits it acts upon
-#           nctrl   = number of control qubits
-#           texsym  = latex symbol for the target qubit operation
-# qubit   - define a qubit with a certain name (all qubits must be defined)
-#           name    = name of the qubit, eg q0 or j2 etc
-#           initval = initial value (optional), eg 0
-# cbit    - define a cbit with a certain name (all cbits must be defined)
-#           name    = name of the cbit, eg c0
-#           initval = initial value (optional), eg 0
-# H       - single qubit operator ("hadamard")
-# X       - single qubit operator 
-# Y       - single qubit operator 
-# Z       - single qubit operator
-# S       - single qubit operator
-# T       - single qubit operator
-# nop     - single qubit operator, just a wire
-# space   - single qubit operator, just an empty space
-# dmeter  - measure qubit, showing "D" style meter instead of rectangular box
-# zero    - replaces qubit with |0> state
-# discard - discard qubit (put "|" vertical bar on qubit wire)
-# slash   - put slash on qubit wire
-# measure - measurement of qubit, gives classical bit (double-wire) output
-# cnot    - two-qubit CNOT
-# c-z     - two-qubit controlled-Z gate
-# c-x     - two-qubit controlled-X gate
-# swap    - two-qubit swap operation 
-# Utwo    - two-qubit operation U
-# ZZ      - two-qubit controlled-Z gate, symmetric notation; two filled circles
-# SS      - two-qubit gate, symmetric; open squares
-# toffoli - three-qubit Toffoli gate
-#
-#-----------------------------------------------------------------------------
-#
-# Patched 02-Nov-04 by P. Oscar Boykin to allow arbitrarily large circuits
-# (old version used to run out when chr() returned a non-alpha character)
-# 
-#-----------------------------------------------------------------------------
-#
-# $Log: qasm2tex.py,v $
-# Revision 1.21  2004/03/25 15:36:59  ike
-# special case for bullet target
-# switched ZZ to using filled circles
-# SS is now the two-qubit op with open squares
-#
-# Revision 1.20  2004/03/25 05:32:35  ike
-# added comments for new gates
-#
-# Revision 1.19  2004/03/25 05:09:54  ike
-# moved qubit labels to def's
-# added ZZ, slash, discard, dmeter
-#
-# Revision 1.18  2004/03/24 20:49:03  ike
-# more comments
-#
-# Revision 1.17  2004/03/24 20:47:08  ike
-# comments for S,T
-#
-# Revision 1.16  2004/03/24 20:40:58  ike
-# comments for swap
-#
-# Revision 1.15  2004/03/24 20:40:30  ike
-# added swap gate
-#
-# Revision 1.14  2004/03/24 20:16:18  ike
-# comments
-#
-# Revision 1.13  2004/03/24 20:15:27  ike
-# multi-qubit controlled multi-qubit gates now work
-# added space
-#
-# Revision 1.12  2004/03/24 19:24:30  ike
-# muliqubit gate targets can now be in any order
-# error checking is done for duplicate targets
-#
-# Revision 1.11  2004/03/24 18:04:17  ike
-# added multi qubit gates
-#
-# Revision 1.10  2004/03/24 16:38:55  ike
-# added zero, S,T,U
-#
-# Revision 1.9  2004/03/24 04:39:36  ike
-# added copyright
-#
-# Revision 1.8  2004/03/24 03:22:43  ike
-# added more comments
-#
-# Revision 1.7  2004/03/24 03:12:55  ike
-# qubits can now have initial values
-#
-# Revision 1.6  2004/03/24 00:36:06  ike
-# multiple controls on qubit now work
-#
-# Revision 1.5  2004/03/23 23:59:44  ike
-# custom gate def's now work; see test4.qasm
-#
-# Revision 1.4  2004/03/23 23:42:35  ike
-# new version with global gate definition table
-#
-# Revision 1.3  2004/03/23 23:13:36  ike
-# working version, switches between single and double wires automatically
-#
-# Revision 1.2  2004/03/23 21:05:29  ike
-# rcs log
-#
-#-----------------------------------------------------------------------------
-#
-# Copyright (c) 2004 Isaac L. Chuang <ichuang@mit.edu>
-#
-# This file, qasm2tex, is part of qasm2circ
-#
-# qasm2tex is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# qasm2tex is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with qasm2tex; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#
-# -*-Python-*-
-
 import re
 import sys
 import os
@@ -352,7 +177,9 @@ class qgate:		# quantum gate class
             return('\def\%s{\A{%s}}' % (myid,myid))
         if(self.name=='ZZ'):		# special for ZZ gate
             return(double_sym_gate(texsym))
-        if(self.name=='SS'):		# special for SS gate
+        if(self.name=='SS'):
+            print texsym
+            print"\n\n\n\n\n\n\n\n\n\nkhsfkwfhwkc"# special for SS gate
             return(double_sym_gate(texsym))
         if(self.name=='swap'):		# special for swap gate
             return(double_sym_gate(texsym))
@@ -631,34 +458,19 @@ class qcircuit:		# quantum circuit class
         print ''
         print r'\end{document}'
 
-#-----------------------------------------------------------------------------
-# master gate definition table (global definition)
-#
-# Format = name : (nbits, nctrl, texsym)
-#
-# where:
-#
-# name     - text name of the gate op
-# nbits    - total number of qubits gate acts upon
-# nctrl    - number of control qubits
-# texsym   - latex code for the operator target qubit
-#
-# This model assumes single qubit operations and multiple-qubit controlled
-# single qubit operations.
-#
-# Note that GateMasterDef is modified by qasm_parser
 
 GateMasterDef = {'cnot'     : ( 2 , 1 , '\o'        ),
-                 'c-z'      : ( 2 , 1 , '\op{Z}'    ),
-                 'c-x'      : ( 2 , 1 , '\op{X}'    ),
+		 'not'     : ( 1 , 0 , '\o'        ),
+                 'c-z'      : ( 2 , 1 , '\op{V+}'    ),
+                 'c-x'      : ( 2 , 1 , '\op{V}'    ),
                  'measure'  : ( 1 , 0 , '\meter'    ),
                  'dmeter'   : ( 1 , 0 , '\dmeter{}' ),
                  'h'        : ( 1 , 0 , '\op{H}'    ),
                  'H'        : ( 1 , 0 , '\op{H}'    ),
-                 'X'        : ( 1 , 0 , '\op{X}'    ),
+                 'X'        : ( 1 , 0 , '\op{V}'    ),
                  'Y'        : ( 1 , 0 , '\op{Y}'    ),
                  'Z'        : ( 1 , 0 , '\op{Z}'    ),
-                 'S'        : ( 1 , 0 , '\op{S}'    ),
+                 'S'        : ( 1 , 0 , '\op{V+}'    ),
                  'T'        : ( 1 , 0 , '\op{T}'    ),
                  'U'        : ( 1 , 0 , '\op{U}'    ),
                  'ZZ'       : ( 2 , 0 , r'\b'       ),

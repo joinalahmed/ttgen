@@ -1,24 +1,18 @@
 import re
 import shutil
 count = 0
-ff = open('../../Desktop/test/smart.csv', 'w')
-ff.close()
-ff = open('../../Desktop/test/l_deta.txt', 'w')
-ff.close()
-with open('../../Desktop/test/state_smart.txt', 'rb') as state_smart:
-    state=state_smart.readlines()
-val_1=int(state[0])
-val_2=int(state[1])
-var2=[]
-with open("../../Desktop/test/a.tfc",'r') as file_tfc:
-    ad=file_tfc.readlines()
+with open("../../Desktop/test/a.tfc", 'r') as file_tfc:
+    ad = file_tfc.readlines()
 for i in range(len(ad)):
-    ad[i]=ad[i].replace('\r\n','\n')
-with open("../../Desktop/test/a.tfc",'w') as file_tfc:
+    ad[i] = ad[i].replace('\r\n','\n')
+with open("../../Desktop/test/a.tfc", 'w') as file_tfc:
     file_tfc.writelines(ad)
 name = '../../Desktop/test/a.tfc'
 ads1 = 0
+var2=[]
 ff = open('../../Desktop/test/correct_output.csv', 'w')
+ff.close()
+ff = open('../../Desktop/test/l_deta.txt', 'w')
 ff.close()
 with open('../../Desktop/test/a.tfc', 'r') as datafile:
     for line in datafile:
@@ -67,13 +61,11 @@ def strings(bc):
             continue
         else:
             bc[j] = 'str(' + bc[j] + ')'
-garbage = open('../../Desktop/test/gensmart.py', 'w')
+garbage = open('../../Desktop/test/gen.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
-
-garbage.write("import subprocess" + "\n")
 garbage.write("\n")
-garbage.write("outs=open('../../Desktop/test/smart_output.txt', 'w')" + "\n")
+garbage.write("outs=open('../../Desktop/test/correct_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
 garbage.write("total=list()" + "\n")
 garbage.write("\n")
@@ -152,7 +144,7 @@ with open(name, 'r') as file_r:
         qw.write(line_final1)
         qw.write('\n')
     ff.close()
-with open(name, 'r+') as file:
+with open('a.tfc', 'r+') as file:
     for line in file:
         if line.strip() == 'BEGIN':
             break
@@ -420,16 +412,15 @@ garbage.write("\n")
 garbage.write("sheet.save_as('../../Desktop/test/tests.csv')")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("sheet.save_as('../../Desktop/test/smart_output.csv')")
+garbage.write("sheet.save_as('../../Desktop/test/output.csv')")
 garbage.write("\n")
+garbage.write("value=len(sheet.column_range())")
 garbage.write("\n")
+garbage.write("sheet.column.select([0,value-1])")
 garbage.write("\n")
+garbage.write("sheet.save_as('../../Desktop/test/correct_output.csv')")
 garbage.write("\n")
-garbage.write("\nprint sheet")
-garbage.write("\n")
-garbage.write("sheet.save_as('../../Desktop/test/smart.csv')")
-garbage.write("\n")
-garbage.write("subprocess.call(['python ../../Desktop/test/delete_column.py'], shell=True)")
 garbage.close()
-execfile('../../Desktop/test/gensmart.py')
+execfile('../../Desktop/test/gen.py')
 qw.close()
+shutil.copy2('../../Desktop/test/main.txt', '../../Desktop/test/faultfree.txt')

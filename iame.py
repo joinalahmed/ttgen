@@ -1,8 +1,8 @@
 from PIL import Image
 import glob, os
-dirs='/home/joy/Desktop/test/tfc/rd53/'
+dirs='/home/joy/Desktop/test/tfc/nthprime3/'
 print dirs
-os.chdir("/home/joy/Desktop/test/tfc/rd53/")
+os.chdir("/home/joy/Desktop/test/tfc/nthprime3/")
 for files in glob.glob("*.JPG"):
     filename = dirs + files
     print files
@@ -12,5 +12,4 @@ for files in glob.glob("*.JPG"):
     bg_w, bg_h = background.size
     offset = ((bg_w - img_w) / 2, (bg_h - img_h) / 2)
     background.paste(img, offset)
-    #background.show()
     background.save(filename)

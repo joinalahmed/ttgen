@@ -59,7 +59,7 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
                 file_smart_tfc.write(temp_1)
             file_smart_tfc.write('END' + '\n')
 
-        subprocess.call(['python ../../Desktop/test/smart_sim.py'], shell=True)
+        subprocess.call(['python ../../Desktop/test/truth_gen.py'], shell=True)
         sys.exit(app.exec_())
 
     def reverse(self):

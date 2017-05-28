@@ -9,7 +9,7 @@ res = 1
 
 
 def clicked():
-    subprocess.call(['python /home/joy/Desktop/test/test_display.py'], shell=True)
+    subprocess.call(['python ../../Desktop/test/test_display.py'], shell=True)
 
 
 class UserWindow(QtGui.QMainWindow):
@@ -25,7 +25,7 @@ class UserWindow(QtGui.QMainWindow):
         self.scnBtn.clicked.connect(clicked)
 
     def specData(self):
-        with open('/home/joy/Desktop/test/testsf.csv', 'rb') as csvInput:
+        with open('../../Desktop/test/testsf.csv', 'rb') as csvInput:
             for row in csv.reader(csvInput):
                 if row > 0:
                     items = [QtGui.QStandardItem(field) for field in row]
@@ -101,7 +101,6 @@ def main():
     app = QtGui.QApplication(sys.argv)
     app.setStyle(QtGui.QStyleFactory.create("plastique"))
     palette = QtGui.QPalette()
-    palette.setColor(QtGui.QPalette.Background, QtCore.Qt.cyan)
     app.setPalette(palette)
     ex = UserWindow()
     ex.resize(1050, 420)

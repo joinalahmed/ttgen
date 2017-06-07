@@ -45,6 +45,21 @@ for p in testPatterns:
     result = [a,b,c]
     truth_push(result)
 
+    c=b^c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c=(a and b)^c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    a=(b and c)^a
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
     b=c^b
     result = [a,b,c]
     truth_fix(result)
@@ -55,22 +70,12 @@ for p in testPatterns:
     truth_fix(result)
     truth_push(result)
 
-    c=b^c
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    b=c^b
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    a=(b and c)^a
+    c=not c
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
     total.append(levels)
-count = 4
+count = 5
 
 che=list()
 

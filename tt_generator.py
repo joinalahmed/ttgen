@@ -1,0 +1,15 @@
+a=(b and c)^a
+b=c^b
+c=b^c
+c=a^c
+b=c^b
+a=(b and c)^a
+b=c^b
+c=b^c
+c=a^c
+b=c^b
+a=(b and c)^a
+b=c^b
+c=b^c
+c=a^c
+b=c^b

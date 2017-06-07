@@ -46,7 +46,12 @@ for p in testPatterns:
     result = [a,b,c]
     truth_push(result)
 
-    a=a and b
+    c = not c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    a=a or b
     b=a
     #Bridging
 
@@ -74,12 +79,8 @@ for p in testPatterns:
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
-
-    a=a and b
-    b=a
-    #Bridging
     total.append(levels)
-count = 4
+count = 5
 
 che=list()
 

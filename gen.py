@@ -1,16 +1,17 @@
 import itertools
 import pyexcel as pe
 
-outs=open('../../Desktop/test/correct_output.txt', 'w')
+outs = open('../../Desktop/test/correct_output.txt', 'w')
 a = 2 ** 3
-total=list()
+total = list()
 
 
 def truth_push(input_result):
     newstring = str(input_result[0])
     for ch in range(1,len(input_result)):
-        newstring+=str(input_result[ch])
+        newstring += str(input_result[ch])
     levels.append(newstring)
+
 
 def truth_fix(input_result):
     for n, i in enumerate(input_result):
@@ -19,11 +20,13 @@ def truth_fix(input_result):
         if i == False:
             result[n] = 0
 
+
 def getheader(cc):
     che=['Level-0']
     for ch in range(cc+1):
         che.append('Level-'+str(ch+1))
     return che
+
 def getheaders(cc,lines):
     che=[lines]
     for ch in range(cc):
@@ -33,8 +36,8 @@ def getheaders(cc,lines):
     return che
 
 
-lines =str('a,b,c')
-lines=lines.replace(',','')
+lines = str('a,b,c')
+lines = lines.replace(',','')
 testPatterns = table = list(itertools.product([0, 1], repeat=3))
 for p in testPatterns:
     levels = list()
@@ -43,17 +46,7 @@ for p in testPatterns:
     result = [a,b,c]
     truth_push(result)
 
-    a=(b and c)^a
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    b=c^b
-    result = [a,b,c]
-    truth_fix(result)
-    truth_push(result)
-
-    c=b^c
+    c=not c
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
@@ -67,8 +60,23 @@ for p in testPatterns:
     result = [a,b,c]
     truth_fix(result)
     truth_push(result)
+
+    a=(b and c)^a
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c=(a and b)^c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
+
+    c=b^c
+    result = [a,b,c]
+    truth_fix(result)
+    truth_push(result)
     total.append(levels)
-count = 4
+count = 5
 
 che=list()
 

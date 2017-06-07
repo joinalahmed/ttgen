@@ -1,6 +1,7 @@
 
-t,b,c,a
-t,c,b
-t,b,c
+t,c
 t,a,c
 t,c,b
+t,b,c,a
+t,a,b,c
+t,b,c

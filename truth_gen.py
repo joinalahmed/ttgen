@@ -5,12 +5,12 @@ count = 0
 with open("../../Desktop/test/a.tfc", 'r') as file_tfc:
     ad = file_tfc.readlines()
 for i in range(len(ad)):
-    ad[i] = ad[i].replace('\r\n','\n')
+    ad[i] = ad[i].replace('\r\n', '\n')
 with open("../../Desktop/test/a.tfc", 'w') as file_tfc:
     file_tfc.writelines(ad)
 name = '../../Desktop/test/a.tfc'
 ads1 = 0
-var2=[]
+var2 =[]
 ff = open('../../Desktop/test/correct_output.csv', 'w')
 ff.close()
 ff = open('../../Desktop/test/l_deta.txt', 'w')
@@ -18,7 +18,7 @@ ff.close()
 with open('../../Desktop/test/a.tfc', 'r') as datafile:
     for line in datafile:
         line1 = line.strip()
-        if '.v' in line1:
+        if '.i' in line1:
             aa = line1
             bb = aa
             bb = bb[3:]
@@ -30,8 +30,15 @@ with open('../../Desktop/test/a.tfc', 'r') as datafile:
     ff.write(bb)
     ff.write('\n')
     ff.close()
-
-
+with open('../../Desktop/test/a.tfc', 'r') as datafile:
+    for line in datafile:
+        line1 = line.strip()
+        if '.v' in line1:
+            aa = line1
+            bd = aa
+            bd = bd[3:]
+            break
+print bd
 def neg_ctl(hexo):
     for mns in range(len(hexo)):
         hu = str(hexo[mns])
@@ -66,16 +73,17 @@ garbage = open('../../Desktop/test/gen.py', 'w')
 garbage.write("import itertools" + "\n")
 garbage.write("import pyexcel as pe" + "\n")
 garbage.write("\n")
-garbage.write("outs=open('../../Desktop/test/correct_output.txt', 'w')" + "\n")
+garbage.write("outs = open('../../Desktop/test/correct_output.txt', 'w')" + "\n")
 garbage.write("a = 2 ** " + asd1 + "\n")
-garbage.write("total=list()" + "\n")
+garbage.write("total = list()" + "\n")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_push(input_result):" + "\n")
 garbage.write("    newstring = str(input_result[0])" + "\n")
 garbage.write("    for ch in range(1,len(input_result)):" + "\n")
-garbage.write("        newstring+=str(input_result[ch])" + "\n")
+garbage.write("        newstring += str(input_result[ch])" + "\n")
 garbage.write("    levels.append(newstring)")
+garbage.write("\n")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("def truth_fix(input_result):" + "\n")
@@ -85,11 +93,13 @@ garbage.write("            result[n] = 1" + "\n")
 garbage.write("        if i == False:" + "\n")
 garbage.write("            result[n] = 0" + "\n")
 garbage.write("\n")
+garbage.write("\n")
 garbage.write("def getheader(cc):"+"\n")
 garbage.write("    che=['Level-0']"+"\n")
 garbage.write("    for ch in range(cc+1):"+"\n")
 garbage.write("        che.append('Level-'+str(ch+1))"+"\n")
 garbage.write("    return che")
+garbage.write("\n")
 garbage.write("\n")
 garbage.write("def getheaders(cc,lines):"+"\n")
 garbage.write("    che=[lines]"+"\n")
@@ -101,16 +111,16 @@ garbage.write("    return che")
 garbage.write("\n")
 garbage.write("\n")
 garbage.write("\n")
-garbage.write("lines =str('"+bb+"')")
+garbage.write("lines = str('"+bd+"')")
 garbage.write("\n")
-garbage.write("lines=lines.replace(',','')")
+garbage.write("lines = lines.replace(',','')")
 garbage.write("\n")
 garbage.write("testPatterns = table = list(itertools.product([0, 1], repeat=" + asd1 + "))" + "\n")
 garbage.write("for p in testPatterns:" + "\n")
 garbage.write("    levels = list()" + "\n")
 garbage.write('    ' + bb + ' = p' + '\n')
 garbage.write("    #constant\n")
-garbage.write("    result = [" + bb + "]\n")
+garbage.write("    result = [" + bd + "]\n")
 garbage.write("    truth_push(result)" + "\n")
 qw = open('../../Desktop/test/main.txt', 'a')
 ff = open('../../Desktop/test/main1.txt', 'w')
@@ -383,7 +393,7 @@ with open('../../Desktop/test/l_deta.txt', 'r+') as exp:
                 garbage.write('    '+qwerty + '\n')
                 if "'" in str(lenn):
                     neg_ctl(lenn)
-        garbage.write("    result = [" + bb + "]\n")
+        garbage.write("    result = [" + bd + "]\n")
         garbage.write("    truth_fix(result)" + "\n")
         garbage.write("    truth_push(result)" + "\n")
     garbage.write("    total.append(levels)" + "\n")
@@ -425,7 +435,8 @@ garbage.write("\n")
 garbage.write("sheet.save_as('../../Desktop/test/correct_output.csv')")
 garbage.write("\n")
 garbage.close()
+execfile('../../Desktop/test/constant_handler.py')
 execfile('../../Desktop/test/gen.py')
 qw.close()
 shutil.copy2('../../Desktop/test/main.txt', '../../Desktop/test/faultfree.txt')
-subprocess.call(['python ../../Desktop/test/delete_column.py'], shell=True)
+#subprocess.call(['python ../../Desktop/test/delete_column.py'], shell=True)

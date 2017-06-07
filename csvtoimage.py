@@ -18,10 +18,10 @@ def text_image(text_path, font_path=None):
     grayscale = 'L'
     with open(text_path) as text_file:
         lines = tuple(l.rstrip() for l in text_file.readlines())
-    large_font = 50
-    font_path = font_path or 'cour.ttf'
+    large_font = 150
+    font_path = font_path or 'FreeMono.ttf'
     try:
-        font = PIL.ImageFont.truetype(font_path, size=large_font)
+        font = PIL.ImageFont.truetype(font_path, size=large_font,encoding="unic")
     except IOError:
         font = PIL.ImageFont.load_default()
         print('Could not use chosen font. Using default.')

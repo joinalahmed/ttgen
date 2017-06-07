@@ -1,12 +1,14 @@
 Gate,Controls,Target,Gate Type
-1,"b,c","a
+1,NULL,"c
+",NOT GATE
+2,a,"c
+",C-NOT GATE
+3,c,"b
+",C-NOT GATE
+4,"b,c","a
 ",TOFFOLI GATE
-2,c,"b
+5,"a,b","c
+",TOFFOLI GATE
+6,b,"c
 ",C-NOT GATE
-3,b,"c
-",C-NOT GATE
-4,a,"c
-",C-NOT GATE
-5,c,"b
-",C-NOT GATE
-Quantum,Cost,=,9
+Quantum,Cost,=,14
